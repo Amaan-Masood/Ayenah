@@ -4,19 +4,21 @@
  *
  * Theme: Midnight Noir (#0A0A0A) & Royal Gold (#C9A84C, #E8D48B, #C0C0C0)
  * Urdu Typography: Noto Nastaliq Urdu
- * Core Features:
- * - Reactive Cursor Mirror Particle & Light Beam System
+ *
+ * Key Enhancements:
+ * - Interactive Landing Page Mirrorwork Carousel (Based on user reference artworks)
+ * - Refined Calligraphic Emblem 'آئینہ' (Pure Ayenah emblem, excluding clunky text)
+ * - Subtle Sacred Geometry & Shimmer Ambient Pattern Background
+ * - Privacy-First WhatsApp Integration: Sleek circular logo button (no raw phone number digits displayed)
+ * - Haute Luxury Buttons with diagonal light-glare sweep
  * - 3D Perspective Tilt on Art Cards
- * - Interactive Custom Commission Studio with Instant Estimate
- * - Direct WhatsApp (03099050832) 1-Click Ordering Integration
- * - Official Social Channels: Instagram (@ayenah.official), Facebook (ayenah.official), Web (ayenahofficial.com)
+ * - Custom Commission Studio with Instant Estimate
  */
 
 (function () {
   const { useState, useEffect, useRef, useMemo } = React;
 
   const WA_NUMBER = "923099050832";
-  const WA_DISPLAY = "0309 9050832";
   const INSTAGRAM_URL = "https://instagram.com/ayenah.official";
   const FACEBOOK_URL = "https://facebook.com/ayenah.official";
   const WEBSITE_URL = "https://ayenahofficial.com";
@@ -49,7 +51,6 @@
     const particles = [];
     const sparkles = [];
 
-    // Mirror Shard Class (Polygon Glass Shards)
     class MirrorShard {
       constructor(x, y, vx, vy) {
         this.x = x;
@@ -65,11 +66,11 @@
 
         const rand = Math.random();
         if (rand > 0.6) {
-          this.color1 = 'rgba(232, 212, 139, '; // Gold light
-          this.color2 = 'rgba(201, 168, 76, ';  // Antique gold
+          this.color1 = 'rgba(232, 212, 139, ';
+          this.color2 = 'rgba(201, 168, 76, ';
         } else if (rand > 0.25) {
-          this.color1 = 'rgba(255, 255, 255, '; // Diamond white
-          this.color2 = 'rgba(192, 192, 192, '; // Chrome silver
+          this.color1 = 'rgba(255, 255, 255, ';
+          this.color2 = 'rgba(192, 192, 192, ';
         } else {
           this.color1 = 'rgba(200, 200, 200, ';
           this.color2 = 'rgba(120, 120, 120, ';
@@ -116,7 +117,6 @@
       }
     }
 
-    // Four-Pointed Star Sparkle
     class StarSparkle {
       constructor(x, y) {
         this.x = x + (Math.random() - 0.5) * 35;
@@ -250,7 +250,7 @@
   }
 
   // ==========================================
-  // 2. SVG ARTWORK COMPONENT
+  // 2. SVG ARTWORK COMPONENT (WITH SWAN & TREE)
   // ==========================================
   function MirrorArtGraphic({ type }) {
     switch (type) {
@@ -261,17 +261,102 @@
           React.createElement('rect', { x: 12, y: 12, width: 276, height: 376, fill: 'none', stroke: 'rgba(201,168,76,0.25)', strokeWidth: '0.8' }),
           React.createElement('g', { transform: 'translate(150, 200)' },
             React.createElement('path', { d: 'M0,-110 Q55,-50 35,20 Q25,80 0,110 Q-25,80 -35,20 Q-55,-50 0,-110Z', fill: 'none', stroke: 'rgba(201,168,76,0.5)', strokeWidth: '1.2' }),
-            React.createElement('polygon', { points: '0,-95 10,-80 -10,-80', fill: '#FFFFFF', opacity: '0.85' }),
-            React.createElement('polygon', { points: '-18,-65 -5,-55 -22,-50', fill: '#C0C0C0', opacity: '0.7' }),
-            React.createElement('polygon', { points: '18,-65 5,-55 22,-50', fill: '#E8D48B', opacity: '0.75' }),
-            React.createElement('polygon', { points: '0,-40 14,-30 -14,-30', fill: '#FFFFFF', opacity: '0.9' }),
-            React.createElement('polygon', { points: '-25,-18 -10,-12 -20, -5', fill: '#C0C0C0', opacity: '0.8' }),
-            React.createElement('polygon', { points: '25,-18 10,-12 20, -5', fill: '#E8D48B', opacity: '0.85' }),
-            React.createElement('polygon', { points: '0,5 15,18 -15,18', fill: '#FFFFFF', opacity: '0.9' }),
-            React.createElement('polygon', { points: '-20,30 -5,40 -16,50', fill: '#C9A84C', opacity: '0.8' }),
-            React.createElement('polygon', { points: '20,30 5,40 16,50', fill: '#FFFFFF', opacity: '0.75' }),
-            React.createElement('polygon', { points: '0,65 12,82 -12,82', fill: '#C0C0C0', opacity: '0.85' }),
-            React.createElement('polygon', { points: '0,92 6,102 -6,102', fill: '#E8D48B', opacity: '0.9' })
+            React.createElement('polygon', { points: '0,-95 10,-80 -10,-80', fill: '#FFFFFF', opacity: '0.9' }),
+            React.createElement('polygon', { points: '-18,-65 -5,-55 -22,-50', fill: '#C0C0C0', opacity: '0.75' }),
+            React.createElement('polygon', { points: '18,-65 5,-55 22,-50', fill: '#E8D48B', opacity: '0.8' }),
+            React.createElement('polygon', { points: '0,-40 14,-30 -14,-30', fill: '#FFFFFF', opacity: '0.95' }),
+            React.createElement('polygon', { points: '-25,-18 -10,-12 -20, -5', fill: '#C0C0C0', opacity: '0.85' }),
+            React.createElement('polygon', { points: '25,-18 10,-12 20, -5', fill: '#E8D48B', opacity: '0.9' }),
+            React.createElement('polygon', { points: '0,5 15,18 -15,18', fill: '#FFFFFF', opacity: '0.95' }),
+            React.createElement('polygon', { points: '-20,30 -5,40 -16,50', fill: '#C9A84C', opacity: '0.85' }),
+            React.createElement('polygon', { points: '20,30 5,40 16,50', fill: '#FFFFFF', opacity: '0.8' }),
+            React.createElement('polygon', { points: '0,65 12,82 -12,82', fill: '#C0C0C0', opacity: '0.9' }),
+            React.createElement('polygon', { points: '0,92 6,102 -6,102', fill: '#E8D48B', opacity: '0.95' })
+          )
+        );
+
+      case 'swan':
+        // Shimmering Swan composed of jewel facets (from reference pictures)
+        return React.createElement('svg', { viewBox: '0 0 300 300', className: 'w-full h-full' },
+          React.createElement('rect', { width: 300, height: 300, fill: '#0B0B0D' }),
+          React.createElement('g', { transform: 'translate(140, 160)' },
+            // Swan neck & head curve
+            React.createElement('path', {
+              d: 'M-40,-70 C-30,-110 0,-110 5,-80 C10,-55 -30,-20 -20,20 C-10,35 15,40 30,35 C-10,48 -35,35 -40,15 C-45,-10 -20,-45 -25,-75 Z',
+              fill: 'none',
+              stroke: '#E8D48B',
+              strokeWidth: '1.2'
+            }),
+            // Body dense mirror shard cluster
+            [-35, -25, -15, -5, 5, 15, 25, 35].map((x, i) =>
+              React.createElement('polygon', {
+                key: 'b-' + i,
+                points: `${x},${20 + (i % 3) * 5} ${x + 8},${28 + (i % 2) * 4} ${x - 4},${32}`,
+                fill: i % 2 === 0 ? '#FFFFFF' : '#E8D48B',
+                opacity: '0.85'
+              })
+            ),
+            // Dispersing swan wing shards taking flight
+            [0, 15, 30, 45, 60, 75, 90].map((dx, i) =>
+              React.createElement('polygon', {
+                key: 'w-' + i,
+                points: `${dx - 10},${-10 - i * 12} ${dx},${-2 - i * 11} ${dx - 6},${8 - i * 10}`,
+                fill: i % 3 === 0 ? '#FFFFFF' : i % 3 === 1 ? '#E8D48B' : '#C0C0C0',
+                opacity: `${0.9 - i * 0.08}`
+              })
+            ),
+            // Floating micro crystal dust
+            [40, 60, 80, 95].map((fx, i) =>
+              React.createElement('circle', {
+                key: 'd-' + i,
+                cx: fx,
+                cy: -60 - i * 8,
+                r: 1.5,
+                fill: '#FFFFFF',
+                opacity: '0.8'
+              })
+            )
+          )
+        );
+
+      case 'tree-of-life':
+        // Golden Tree with Mirror Foliage (from reference pictures)
+        return React.createElement('svg', { viewBox: '0 0 300 300', className: 'w-full h-full' },
+          React.createElement('rect', { width: 300, height: 300, fill: '#0E0D0A' }),
+          React.createElement('g', { transform: 'translate(150, 165)' },
+            // Tree trunk in textured gold
+            React.createElement('path', {
+              d: 'M-12,70 Q-15,20 -3,-5 Q-20,-30 -35,-50 Q-15,-30 0,-15 Q15,-30 35,-50 Q20,-30 5,-5 Q15,20 12,70 Z',
+              fill: 'url(#goldTrunkGrad)',
+              stroke: '#C9A84C',
+              strokeWidth: '1'
+            }),
+            // Canopy mirror shards
+            [-50, -35, -20, -5, 10, 25, 40, 55].map((x, i) =>
+              [-60, -45, -30, -15].map((y, j) =>
+                React.createElement('polygon', {
+                  key: `${i}-${j}`,
+                  points: `${x + (j % 2) * 4},${y} ${x + 9},${y + 8} ${x - 2},${y + 11}`,
+                  fill: (i + j) % 2 === 0 ? '#FFFFFF' : '#E8D48B',
+                  opacity: '0.85'
+                })
+              )
+            ),
+            // Root mirror fragments
+            [-25, -10, 5, 20].map((rx, idx) =>
+              React.createElement('polygon', {
+                key: 'r-' + idx,
+                points: `${rx},72 ${rx + 10},78 ${rx - 4},80`,
+                fill: '#C0C0C0',
+                opacity: '0.75'
+              })
+            )
+          ),
+          React.createElement('defs', null,
+            React.createElement('linearGradient', { id: 'goldTrunkGrad', x1: '0', y1: '0', x2: '1', y2: '1' },
+              React.createElement('stop', { offset: '0%', stopColor: '#E8D48B' }),
+              React.createElement('stop', { offset: '100%', stopColor: '#9E7D2E' })
+            )
           )
         );
 
@@ -359,7 +444,165 @@
   }
 
   // ==========================================
-  // 3. INTERACTIVE 3D ART CARD
+  // 3. LANDING PAGE HAUTE CAROUSEL COMPONENT
+  // ==========================================
+  function HeroMirrorCarousel({ onOpenInquiry }) {
+    const slides = [
+      {
+        id: 'c-1',
+        title: 'Sacred Allah Teardrop Calligraphy',
+        urdu: 'خطاطی اسمِ جلالہ',
+        type: 'calligraphy-drop',
+        tag: 'Signature Exhibition',
+        desc: 'Over 1,200 micro-cut mirror facets catching room spotlights, forming the sacred name inside an elegant teardrop silhouette.'
+      },
+      {
+        id: 'c-2',
+        title: 'Metamorphosis Crystal Butterfly',
+        urdu: 'پروانہ آئینہ',
+        type: 'butterfly',
+        tag: 'Contemporary Mosaic',
+        desc: 'One wing sculpted in dense mirror reflection while the opposite wing disperses into sparkling mirror crystal dust.'
+      },
+      {
+        id: 'c-3',
+        title: 'Golden Tree of Life Foliage',
+        urdu: 'شجرۂ حیات',
+        type: 'tree-of-life',
+        tag: 'Grand Masterpiece',
+        desc: 'Sculpted golden trunk radiating into hundreds of faceted mirror leaves, bathing your interior in radiant light.'
+      },
+      {
+        id: 'c-4',
+        title: 'Celestial Swan in Glass Facets',
+        urdu: 'قازِ ضیاء',
+        type: 'swan',
+        tag: 'Rare Collector Edition',
+        desc: 'Graceful swan silhouette rendered purely in glistening micro mirror points that sparkle in the evening twilight.'
+      },
+      {
+        id: 'c-5',
+        title: 'Shattered Heart of Radiance',
+        urdu: 'قلبِ بلور',
+        type: 'shattered-heart',
+        tag: 'Emotional Luxury',
+        desc: 'Intricate broken mirror shards harmonized into a symbol of emotional depth and luminous healing.'
+      }
+    ];
+
+    const [current, setCurrent] = useState(0);
+    const [paused, setPaused] = useState(false);
+
+    useEffect(() => {
+      if (paused) return;
+      const timer = setInterval(() => {
+        setCurrent(prev => (prev + 1) % slides.length);
+      }, 4500);
+      return () => clearInterval(timer);
+    }, [paused, slides.length]);
+
+    const activeSlide = slides[current];
+
+    return React.createElement(
+      'div',
+      {
+        className: 'relative max-w-4xl mx-auto mt-8 mb-12 p-1.5 rounded-2xl bg-gradient-to-b from-[#C9A84C]/30 via-[#C9A84C]/10 to-transparent shadow-2xl',
+        onMouseEnter: () => setPaused(true),
+        onMouseLeave: () => setPaused(false)
+      },
+      React.createElement(
+        'div',
+        { className: 'bg-[#121215]/95 border border-[#2B2B32] rounded-xl overflow-hidden p-6 sm:p-8 backdrop-blur-xl relative' },
+        
+        React.createElement('div', { className: 'flex flex-col md:flex-row items-center gap-8' },
+          
+          // Art Canvas Visual with Frame
+          React.createElement(
+            'div',
+            { className: 'w-full md:w-1/2 aspect-square max-w-[320px] bg-[#0A0A0A] border border-[#C9A84C]/30 rounded-xl p-5 relative overflow-hidden shadow-2xl group' },
+            React.createElement('div', { className: 'absolute top-3 left-3 px-2.5 py-0.5 rounded bg-[#0A0A0A]/90 border border-[#C9A84C]/40 text-[10px] uppercase tracking-widest text-[#E8D48B]' }, activeSlide.tag),
+            React.createElement(MirrorArtGraphic, { type: activeSlide.type })
+          ),
+
+          // Slide Text & Commission Action
+          React.createElement(
+            'div',
+            { className: 'w-full md:w-1/2 text-left space-y-4' },
+            React.createElement('div', { className: 'flex items-center justify-between' },
+              React.createElement('span', { className: 'text-xs uppercase tracking-[0.25em] text-[#C9A84C]' }, `Exhibition 0${current + 1} / 0${slides.length}`),
+              React.createElement('span', { className: 'font-nastaliq text-xl text-[#E8D48B]' }, activeSlide.urdu)
+            ),
+            React.createElement('h3', { className: 'font-[\'Cormorant_Garamond\'] text-2xl sm:text-3xl text-white font-light' }, activeSlide.title),
+            React.createElement('p', { className: 'text-xs sm:text-sm text-gray-400 leading-relaxed' }, activeSlide.desc),
+            
+            React.createElement(
+              'div',
+              { className: 'pt-3 flex flex-wrap items-center gap-3' },
+              React.createElement(
+                'button',
+                {
+                  onClick: () => onOpenInquiry({ designType: activeSlide.title }),
+                  className: 'btn-luxury-gold !py-2.5 !px-5 text-xs'
+                },
+                React.createElement('span', null, 'Inquire This Artwork'),
+                React.createElement('span', { className: 'text-xs' }, '◆')
+              ),
+              React.createElement(
+                'a',
+                {
+                  href: `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent('Assalam o Alaikum! I saw the ' + activeSlide.title + ' on your website and would love to inquire.')}`,
+                  target: '_blank',
+                  rel: 'noopener noreferrer',
+                  className: 'btn-luxury-outline !py-2.5 !px-4 text-xs'
+                },
+                'WhatsApp Atelier 💬'
+              )
+            )
+          )
+        ),
+
+        // Carousel Controls & Indicators
+        React.createElement(
+          'div',
+          { className: 'flex justify-between items-center pt-6 mt-6 border-t border-white/5' },
+          React.createElement(
+            'div',
+            { className: 'flex gap-2' },
+            slides.map((_, idx) =>
+              React.createElement('button', {
+                key: idx,
+                onClick: () => setCurrent(idx),
+                className: `h-1.5 rounded-full transition-all ${idx === current ? 'w-8 bg-[#E8D48B] shadow-glow' : 'w-2 bg-gray-700 hover:bg-gray-500'}`
+              })
+            )
+          ),
+          React.createElement(
+            'div',
+            { className: 'flex items-center gap-2' },
+            React.createElement(
+              'button',
+              {
+                onClick: () => setCurrent(prev => (prev - 1 + slides.length) % slides.length),
+                className: 'w-8 h-8 rounded-full border border-gray-700 hover:border-[#C9A84C] text-gray-300 hover:text-white flex items-center justify-center transition text-xs'
+              },
+              '←'
+            ),
+            React.createElement(
+              'button',
+              {
+                onClick: () => setCurrent(prev => (prev + 1) % slides.length),
+                className: 'w-8 h-8 rounded-full border border-gray-700 hover:border-[#C9A84C] text-gray-300 hover:text-white flex items-center justify-center transition text-xs'
+              },
+              '→'
+            )
+          )
+        )
+      )
+    );
+  }
+
+  // ==========================================
+  // 4. INTERACTIVE 3D ART CARD
   // ==========================================
   function ArtCard({ product, onSelect }) {
     const cardRef = useRef(null);
@@ -455,7 +698,7 @@
   }
 
   // ==========================================
-  // 4. CUSTOM COMMISSION STUDIO (CALCULATOR)
+  // 5. CUSTOM COMMISSION STUDIO (CALCULATOR)
   // ==========================================
   function CustomCommissionStudio({ onOpenInquiry }) {
     const [shape, setShape] = useState('calligraphy');
@@ -494,10 +737,10 @@
 
     return React.createElement(
       'section',
-      { id: 'studio', className: 'py-24 px-4 sm:px-8 max-w-6xl mx-auto' },
+      { id: 'studio', className: 'py-20 px-4 sm:px-8 max-w-6xl mx-auto' },
       React.createElement(
         'div',
-        { className: 'text-center mb-14' },
+        { className: 'text-center mb-12' },
         React.createElement('span', { className: 'text-xs uppercase tracking-[0.3em] text-[#C9A84C] block mb-2 font-medium' }, 'Interactive Art Atelier'),
         React.createElement('h2', { className: 'text-3xl sm:text-4xl font-light font-[\'Cormorant_Garamond\'] text-white shimmer-gold' }, 'Custom Commission Studio'),
         React.createElement('div', { className: 'w-24 h-[1px] bg-gradient-to-r from-transparent via-[#C9A84C] to-transparent mx-auto my-3' }),
@@ -506,7 +749,7 @@
 
       React.createElement(
         'div',
-        { className: 'grid grid-cols-1 lg:grid-cols-12 gap-8 bg-[#141414] border border-[#2B2B32] rounded-2xl p-6 sm:p-8 shadow-2xl relative overflow-hidden' },
+        { className: 'grid grid-cols-1 lg:grid-cols-12 gap-8 bg-[#141416]/90 border border-[#2B2B32] rounded-2xl p-6 sm:p-8 shadow-2xl relative overflow-hidden backdrop-blur-md' },
         
         React.createElement('div', { className: 'absolute -top-32 -right-32 w-80 h-80 bg-[#C9A84C]/5 rounded-full blur-3xl pointer-events-none' }),
 
@@ -629,7 +872,7 @@
   }
 
   // ==========================================
-  // 5. INQUIRY / COMMISSION MODAL
+  // 6. INQUIRY / COMMISSION MODAL
   // ==========================================
   function InquiryModal({ isOpen, onClose, initialData }) {
     if (!isOpen) return null;
@@ -727,13 +970,13 @@
               React.createElement(
                 'div',
                 null,
-                React.createElement('label', { className: 'block text-xs uppercase text-gray-400 mb-1' }, 'WhatsApp / Phone *'),
+                React.createElement('label', { className: 'block text-xs uppercase text-gray-400 mb-1' }, 'WhatsApp Contact *'),
                 React.createElement('input', {
                   type: 'tel',
                   required: true,
                   value: form.phone,
                   onChange: e => setForm({ ...form, phone: e.target.value }),
-                  placeholder: '0300 1234567',
+                  placeholder: 'Your WhatsApp Number',
                   className: 'w-full bg-[#0E0E0E] border border-[#2B2B32] focus:border-[#C9A84C] rounded-lg p-2.5 text-xs text-white outline-none'
                 })
               ),
@@ -809,7 +1052,7 @@
                   rel: 'noopener noreferrer',
                   className: 'w-full btn-luxury-outline text-center text-xs'
                 },
-                React.createElement('span', null, 'Or Message Us on WhatsApp Directly'),
+                React.createElement('span', null, 'Or Message Directly on WhatsApp'),
                 React.createElement('span', { className: 'text-xs text-emerald-400' }, '💬')
               )
             )
@@ -892,17 +1135,17 @@
     },
     {
       id: "ay-06",
-      title: "Luminous Autumn Maple Leaf",
-      urduTitle: "برگِ آئینہ",
+      title: "Celestial Swan in Jewels",
+      urduTitle: "قازِ ضیاء",
       category: "nature",
-      tag: "Artisanal",
-      dimensions: "18\" x 18\" Piece",
-      mirrorPieces: "720 faceted mirrors",
-      pricePKR: 12800,
-      priceUSD: 46,
-      description: "Intricate botanical leaf veins outlined in antique gold with leaf body packed with sparkling silver glass shards, reflecting ambient light from all corners.",
-      featured: false,
-      artSvgType: "leaf"
+      tag: "Collector Edition",
+      dimensions: "20\" x 24\" Custom Art",
+      mirrorPieces: "920 faceted mirror points",
+      pricePKR: 16500,
+      priceUSD: 60,
+      description: "A poetic swan silhouette handcrafted with thousands of micro mirror jewel dots that catch ambient light like stars.",
+      featured: true,
+      artSvgType: "swan"
     },
     {
       id: "ay-07",
@@ -935,7 +1178,7 @@
   ];
 
   // ==========================================
-  // 6. MAIN APPLICATION COMPONENT
+  // 7. MAIN APPLICATION COMPONENT
   // ==========================================
   function App() {
     const [products, setProducts] = useState(INITIAL_PRODUCTS);
@@ -977,20 +1220,27 @@
 
     return React.createElement(
       'div',
-      { className: 'min-h-screen bg-[#0A0A0A] text-[#E8E8E8] relative selection:bg-[#C9A84C] selection:text-black' },
+      { className: 'min-h-screen text-[#E8E8E8] relative selection:bg-[#C9A84C] selection:text-black' },
 
-      // Floating WhatsApp Direct Button
+      // Pure Circular WhatsApp Logo Button (No explicit phone number digits displayed)
       React.createElement(
         'a',
         {
           href: `https://wa.me/${WA_NUMBER}?text=${directWhatsAppGreeting}`,
           target: '_blank',
           rel: 'noopener noreferrer',
-          className: 'floating-wa-btn'
+          title: 'Direct WhatsApp Chat',
+          className: 'floating-wa-circle'
         },
-        React.createElement('span', { className: 'wa-pulse' }),
-        React.createElement('span', { className: 'text-xs tracking-wider font-medium' }, 'Chat on WhatsApp'),
-        React.createElement('span', { className: 'text-[11px] text-emerald-400 font-mono hidden sm:inline' }, WA_DISPLAY)
+        // Official WhatsApp SVG icon
+        React.createElement('svg', {
+          viewBox: '0 0 32 32',
+          className: 'w-7 h-7 fill-white'
+        },
+          React.createElement('path', {
+            d: 'M16.002 2C8.28 2 2 8.28 2 16.002c0 2.65.736 5.127 2.012 7.243L2 30l6.945-1.977A13.93 13.93 0 0 0 16.002 30C23.723 30 30 23.723 30 16.002 30 8.28 23.723 2 16.002 2zm7.643 19.897c-.318.895-1.577 1.64-2.583 1.857-.687.147-1.584.264-4.596-.985-3.849-1.597-6.326-5.503-6.52-5.759-.187-.255-1.554-2.07-1.554-3.95 0-1.879.986-2.806 1.336-3.187.35-.38.765-.476 1.02-.476.255 0 .51.002.733.013.235.012.55-.09.86.654.318.767 1.085 2.65 1.18 2.842.095.192.158.416.032.671-.127.255-.19.414-.38.638-.19.223-.4.498-.572.67-.19.19-.39.397-.168.78.223.382.99 1.633 2.122 2.643 1.458 1.3 2.688 1.703 3.07 1.895.38.19.605.158.828-.096.223-.255.955-1.115 1.21-1.498.255-.382.51-.318.86-.191.35.127 2.23 1.05 2.612 1.242.38.19.637.286.732.446.096.159.096.924-.222 1.819z'
+          })
+        )
       ),
 
       // Inquiries Modal
@@ -1005,7 +1255,7 @@
         'nav',
         { className: `fixed top-0 left-0 right-0 z-40 transition-all duration-300 px-4 sm:px-10 py-4 flex items-center justify-between ${navScrolled ? 'bg-[#0A0A0A]/95 backdrop-blur-md border-b border-[#C9A84C]/20 shadow-2xl py-3' : 'bg-transparent'}` },
         
-        // Brand Logo with Noto Nastaliq Urdu
+        // Brand Logo with Noto Nastaliq Urdu (Pure Ayenah emblem)
         React.createElement(
           'a',
           { href: '#', className: 'flex items-center gap-2.5' },
@@ -1024,21 +1274,10 @@
           React.createElement('a', { href: '#contact', className: 'hover:text-[#E8D48B] transition' }, 'Contact')
         ),
 
-        // Action Buttons
+        // Action Buttons (Clean luxury button without raw phone number)
         React.createElement(
           'div',
           { className: 'flex items-center gap-3' },
-          React.createElement(
-            'a',
-            {
-              href: `https://wa.me/${WA_NUMBER}?text=${directWhatsAppGreeting}`,
-              target: '_blank',
-              rel: 'noopener noreferrer',
-              className: 'hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 text-xs text-emerald-400 border border-emerald-500/40 rounded hover:bg-emerald-500/10 transition'
-            },
-            React.createElement('span', null, '💬'),
-            React.createElement('span', { className: 'font-mono' }, WA_DISPLAY)
-          ),
           React.createElement(
             'button',
             {
@@ -1069,16 +1308,6 @@
           React.createElement('a', { href: '#journey', onClick: () => setMobileMenuOpen(false) }, 'Process'),
           React.createElement('a', { href: '#contact', onClick: () => setMobileMenuOpen(false) }, 'Contact'),
           React.createElement(
-            'a',
-            {
-              href: `https://wa.me/${WA_NUMBER}?text=${directWhatsAppGreeting}`,
-              target: '_blank',
-              rel: 'noopener noreferrer',
-              className: 'w-full py-3 bg-emerald-600 text-white rounded text-center text-xs'
-            },
-            `Chat on WhatsApp (${WA_DISPLAY})`
-          ),
-          React.createElement(
             'button',
             {
               onClick: () => { setMobileMenuOpen(false); handleStartCommission({}); },
@@ -1091,71 +1320,57 @@
       // --- HERO SECTION ---
       React.createElement(
         'header',
-        { className: 'relative min-h-screen flex items-center justify-center pt-24 pb-16 px-4 text-center overflow-hidden' },
-        
-        React.createElement('div', { className: 'absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(201,168,76,0.06)_0%,transparent_70%)] pointer-events-none' }),
+        { className: 'relative min-h-screen flex flex-col items-center justify-center pt-24 pb-16 px-4 text-center overflow-hidden' },
 
         React.createElement(
           'div',
-          { className: 'max-w-4xl mx-auto relative z-10 space-y-5' },
+          { className: 'max-w-4xl mx-auto relative z-10 space-y-4' },
 
+          // Clean Geometric Gold Diamond Emblem
           React.createElement(
             'div',
-            { className: 'w-12 h-12 mx-auto border border-[#C9A84C]/50 rotate-45 flex items-center justify-center p-2 mb-4' },
-            React.createElement('div', { className: 'w-full h-full bg-gradient-to-br from-[#E8D48B]/40 to-transparent' })
+            { className: 'w-10 h-10 mx-auto border border-[#C9A84C]/60 rotate-45 flex items-center justify-center p-1.5 mb-2' },
+            React.createElement('div', { className: 'w-full h-full bg-gradient-to-br from-[#E8D48B]/50 to-transparent' })
           ),
 
           React.createElement('h1', { className: 'text-5xl sm:text-7xl md:text-8xl font-light font-[\'Cormorant_Garamond\'] tracking-[0.25em] shimmer-gold' }, 'AYENAH'),
           
-          // Urdu Brand Name in Noto Nastaliq Urdu (properly proportioned)
-          React.createElement('div', { className: 'font-nastaliq text-3xl sm:text-4xl md:text-5xl text-[#E8D48B] my-2 leading-relaxed' }, 'آئینہ · دستکاری'),
+          // Pure elegant Urdu emblem in Noto Nastaliq
+          React.createElement(
+            'div',
+            { className: 'flex items-center justify-center gap-3 my-1' },
+            React.createElement('span', { className: 'w-10 h-[1px] bg-gradient-to-r from-transparent to-[#C9A84C]' }),
+            React.createElement('span', { className: 'font-nastaliq text-2xl sm:text-3xl text-[#E8D48B]' }, 'آئینہ'),
+            React.createElement('span', { className: 'w-10 h-[1px] bg-gradient-to-l from-transparent to-[#C9A84C]' })
+          ),
           
-          React.createElement('div', { className: 'w-32 h-[1px] bg-gradient-to-r from-transparent via-[#C9A84C] to-transparent mx-auto' }),
-          
-          // Removed 'on Canvas'
           React.createElement('p', { className: 'text-xs sm:text-sm uppercase tracking-[0.38em] text-[#C9A84C] font-semibold' }, 'Handcrafted Luxury Mirror Art'),
 
           React.createElement(
             'p',
-            { className: 'text-sm sm:text-base text-gray-400 max-w-xl mx-auto font-light leading-relaxed' },
-            'Where thousands of hand-cut mirror fragments play with ambient light, reflecting sacred Arabic calligraphy, meditative mandalas, and poetic natural silhouettes.'
-          ),
+            { className: 'text-xs sm:text-sm text-gray-400 max-w-xl mx-auto font-light leading-relaxed' },
+            'Where thousands of hand-cut mirror fragments play with ambient room light, reflecting sacred Arabic calligraphy, meditative mandalas, and poetic natural silhouettes.'
+          )
+        ),
 
-          // Haute Luxury Buttons
-          React.createElement(
-            'div',
-            { className: 'pt-4 flex flex-wrap justify-center gap-4' },
-            React.createElement(
-              'a',
-              { href: '#collection', className: 'btn-luxury-gold' },
-              React.createElement('span', null, 'Explore Collection'),
-              React.createElement('span', { className: 'text-xs opacity-75' }, '◆')
-            ),
-            React.createElement(
-              'a',
-              { href: '#studio', className: 'btn-luxury-outline' },
-              React.createElement('span', null, 'Custom Studio'),
-              React.createElement('span', { className: 'text-xs opacity-75' }, '✧')
-            )
-          ),
+        // Interactive Landing Page Haute Mirror Carousel
+        React.createElement(HeroMirrorCarousel, { onOpenInquiry: handleStartCommission }),
 
-          // Stat Pills
+        // Hero CTA Buttons
+        React.createElement(
+          'div',
+          { className: 'flex flex-wrap justify-center gap-4 relative z-10' },
           React.createElement(
-            'div',
-            { className: 'pt-16 grid grid-cols-2 sm:grid-cols-4 gap-4 max-w-3xl mx-auto border-t border-[#26262B]' },
-            [
-              { num: '120,000+', label: 'Mirror Shards Cut' },
-              { num: '140+', label: 'Creations Completed' },
-              { num: '4.98 ★', label: 'Client Satisfaction' },
-              { num: '100% Hand', label: 'Made in Pakistan' }
-            ].map((stat, i) =>
-              React.createElement(
-                'div',
-                { key: i, className: 'p-2' },
-                React.createElement('div', { className: 'text-lg sm:text-xl font-light font-[\'Cormorant_Garamond\'] text-[#E8D48B]' }, stat.num),
-                React.createElement('div', { className: 'text-[11px] text-gray-500 uppercase tracking-wider mt-0.5' }, stat.label)
-              )
-            )
+            'a',
+            { href: '#collection', className: 'btn-luxury-gold' },
+            React.createElement('span', null, 'Explore Collection'),
+            React.createElement('span', { className: 'text-xs opacity-75' }, '◆')
+          ),
+          React.createElement(
+            'a',
+            { href: '#studio', className: 'btn-luxury-outline' },
+            React.createElement('span', null, 'Custom Studio & Calculator'),
+            React.createElement('span', { className: 'text-xs opacity-75' }, '✧')
           )
         )
       ),
@@ -1163,10 +1378,10 @@
       // --- ART GALLERY / COLLECTION ---
       React.createElement(
         'section',
-        { id: 'collection', className: 'py-24 px-4 sm:px-8 max-w-7xl mx-auto' },
+        { id: 'collection', className: 'py-20 px-4 sm:px-8 max-w-7xl mx-auto' },
         React.createElement(
           'div',
-          { className: 'text-center mb-12' },
+          { className: 'text-center mb-10' },
           React.createElement('span', { className: 'text-xs uppercase tracking-[0.3em] text-[#C9A84C] block mb-2 font-medium' }, 'Signature Works'),
           React.createElement('h2', { className: 'text-3xl sm:text-4xl font-light font-[\'Cormorant_Garamond\'] text-white shimmer-gold' }, 'The Mirror Gallery'),
           React.createElement('div', { className: 'w-24 h-[1px] bg-gradient-to-r from-transparent via-[#C9A84C] to-transparent mx-auto my-3' })
@@ -1174,7 +1389,7 @@
 
         React.createElement(
           'div',
-          { className: 'flex flex-wrap justify-center gap-2 sm:gap-3 mb-12' },
+          { className: 'flex flex-wrap justify-center gap-2 sm:gap-3 mb-10' },
           [
             { id: 'all', label: 'All Collections' },
             { id: 'calligraphy', label: 'Arabic Calligraphy' },
@@ -1210,37 +1425,43 @@
       // --- CUSTOM COMMISSION STUDIO ---
       React.createElement(CustomCommissionStudio, { onOpenInquiry: handleStartCommission }),
 
-      // --- THE ARTIST & CRAFT ---
+      // --- THE ARTIST & CRAFT (TIGHTENED SPACING & LUXURY CARD LAYOUT) ---
       React.createElement(
         'section',
-        { id: 'craft', className: 'py-24 px-4 sm:px-8 max-w-6xl mx-auto border-t border-[#1F1F24]' },
+        { id: 'craft', className: 'py-20 px-4 sm:px-8 max-w-5xl mx-auto' },
         React.createElement(
           'div',
-          { className: 'grid grid-cols-1 lg:grid-cols-12 gap-12 items-center' },
+          { className: 'p-8 sm:p-12 bg-[#121215]/80 border border-[#2B2B32] rounded-2xl relative shadow-2xl backdrop-blur-md overflow-hidden' },
+          
+          React.createElement('div', { className: 'absolute -top-24 -left-24 w-72 h-72 bg-[#C9A84C]/5 rounded-full blur-3xl pointer-events-none' }),
+
           React.createElement(
             'div',
-            { className: 'lg:col-span-6 relative flex items-center justify-center h-80 sm:h-96' },
-            React.createElement('div', { className: 'absolute w-72 h-72 rounded-full border border-[#C9A84C]/20 rotating-ring' }),
-            React.createElement('div', { className: 'absolute w-56 h-56 rounded-full border border-[#FFFFFF]/15 rotating-ring-rev' }),
-            React.createElement('div', { className: 'absolute w-40 h-40 rounded-full border border-[#C9A84C]/30 rotating-ring' }),
-            React.createElement('div', { className: 'w-24 h-24 rounded-full bg-gradient-to-br from-[#C9A84C]/30 to-transparent border border-[#C9A84C] flex items-center justify-center font-nastaliq text-2xl text-[#E8D48B]' }, 'آئینہ')
-          ),
-          React.createElement(
-            'div',
-            { className: 'lg:col-span-6 space-y-5' },
-            React.createElement('span', { className: 'text-xs uppercase tracking-[0.3em] text-[#C9A84C] font-semibold' }, 'Behind The Mirror'),
-            React.createElement('h2', { className: 'text-3xl sm:text-4xl font-light font-[\'Cormorant_Garamond\'] text-white' }, 'The Meditative Art of Light & Shards'),
-            React.createElement('p', { className: 'text-xs sm:text-sm text-gray-400 leading-relaxed' },
-              'Ayenah was born out of a profound love for traditional mosaic craft combined with modern luxury aesthetics. Every tiny mirror facet is hand-cut with precision glass tools and meticulously set onto textured foundations with archival adhesives.'
-            ),
-            React.createElement('p', { className: 'text-xs sm:text-sm text-gray-400 leading-relaxed' },
-              'Unlike flat artwork, mirror art is dynamic — as you walk through your home, sunlight, candles, and evening lamps illuminate different facets, bringing the artwork to life in an ever-changing dance of reflections.'
+            { className: 'grid grid-cols-1 md:grid-cols-12 gap-8 items-center' },
+            React.createElement(
+              'div',
+              { className: 'md:col-span-4 relative flex items-center justify-center h-48 sm:h-64' },
+              React.createElement('div', { className: 'absolute w-44 h-44 rounded-full border border-[#C9A84C]/25 rotating-ring' }),
+              React.createElement('div', { className: 'absolute w-32 h-32 rounded-full border border-white/10 rotating-ring-rev' }),
+              React.createElement('div', { className: 'w-20 h-20 rounded-full bg-gradient-to-br from-[#C9A84C]/30 to-transparent border border-[#C9A84C] flex items-center justify-center font-nastaliq text-2xl text-[#E8D48B]' }, 'آئینہ')
             ),
             React.createElement(
               'div',
-              { className: 'pt-2 flex items-center gap-2' },
-              React.createElement('span', { className: 'font-[\'Cormorant_Garamond\'] text-xl text-[#E8D48B] italic' }, '— Ayenah Official Atelier'),
-              React.createElement('span', { className: 'font-nastaliq text-lg text-[#C9A84C]' }, 'آئینہ')
+              { className: 'md:col-span-8 space-y-3.5' },
+              React.createElement('span', { className: 'text-xs uppercase tracking-[0.3em] text-[#C9A84C] font-semibold' }, 'Behind The Mirror'),
+              React.createElement('h2', { className: 'text-2xl sm:text-3xl font-light font-[\'Cormorant_Garamond\'] text-white' }, 'The Meditative Art of Light & Shards'),
+              React.createElement('p', { className: 'text-xs sm:text-sm text-gray-400 leading-relaxed' },
+                'Ayenah was born out of a profound passion for traditional mosaic craft elevated into modern luxury aesthetics. Every tiny mirror facet is hand-broken, precision-cut, and meticulously arranged to catch changing ambient daylight and evening chandeliers.'
+              ),
+              React.createElement('p', { className: 'text-xs sm:text-sm text-gray-400 leading-relaxed' },
+                'Unlike conventional flat art, mirror work is a living, breathing creation — as you walk through your space, it illuminates different angles, bringing tranquility, depth, and radiant beauty into your home.'
+              ),
+              React.createElement(
+                'div',
+                { className: 'pt-1 flex items-center gap-2' },
+                React.createElement('span', { className: 'font-[\'Cormorant_Garamond\'] text-lg text-[#E8D48B] italic' }, '— Ayenah Official Atelier'),
+                React.createElement('span', { className: 'font-nastaliq text-base text-[#C9A84C]' }, 'آئینہ')
+              )
             )
           )
         )
@@ -1249,27 +1470,27 @@
       // --- 4-STEP PROCESS JOURNEY ---
       React.createElement(
         'section',
-        { id: 'journey', className: 'py-20 px-4 sm:px-8 max-w-6xl mx-auto' },
+        { id: 'journey', className: 'py-16 px-4 sm:px-8 max-w-6xl mx-auto' },
         React.createElement(
           'div',
-          { className: 'text-center mb-16' },
+          { className: 'text-center mb-12' },
           React.createElement('span', { className: 'text-xs uppercase tracking-[0.3em] text-[#C9A84C]' }, 'From Vision To Wall'),
           React.createElement('h2', { className: 'text-3xl font-light font-[\'Cormorant_Garamond\'] text-white mt-1' }, 'The Commission Journey')
         ),
         React.createElement(
           'div',
-          { className: 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6' },
+          { className: 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5' },
           [
-            { step: '01', title: 'Consultation', desc: 'Share your preferred verse, motif, size, and interior mood directly over WhatsApp or consultation.' },
-            { step: '02', title: 'Design Draft', desc: 'We prepare the geometric and calligraphic layout sketch tailored to your exact proportions.' },
+            { step: '01', title: 'Consultation', desc: 'Share your preferred motif, verse, size, and interior mood directly over WhatsApp.' },
+            { step: '02', title: 'Design Draft', desc: 'We prepare the geometric layout and mosaic draft tailored to your proportions.' },
             { step: '03', title: 'Handcrafting', desc: 'Each mirror shard is hand-broken, smoothed, and carefully adhered with gold lining.' },
-            { step: '04', title: 'Protected Delivery', desc: 'Custom bubble-cushioned and wooden reinforced packaging delivered safely nationwide.' }
+            { step: '04', title: 'Protected Delivery', desc: 'Reinforced bubble-cushioned and wooden framed packaging delivered safely nationwide.' }
           ].map((item, i) =>
             React.createElement(
               'div',
-              { key: i, className: 'p-6 bg-[#121214] border border-[#26262B] rounded-xl hover:border-[#C9A84C]/50 transition' },
-              React.createElement('div', { className: 'font-[\'Cormorant_Garamond\'] text-3xl text-[#C9A84C] mb-3' }, item.step),
-              React.createElement('h3', { className: 'text-base font-medium text-white mb-2' }, item.title),
+              { key: i, className: 'p-6 bg-[#141417]/80 border border-[#26262B] rounded-xl hover:border-[#C9A84C]/50 transition' },
+              React.createElement('div', { className: 'font-[\'Cormorant_Garamond\'] text-3xl text-[#C9A84C] mb-2' }, item.step),
+              React.createElement('h3', { className: 'text-base font-medium text-white mb-1.5' }, item.title),
               React.createElement('p', { className: 'text-xs text-gray-400 leading-relaxed' }, item.desc)
             )
           )
@@ -1279,26 +1500,26 @@
       // --- CLIENT REVIEWS ---
       React.createElement(
         'section',
-        { className: 'py-20 px-4 sm:px-8 max-w-5xl mx-auto text-center' },
+        { className: 'py-16 px-4 sm:px-8 max-w-4xl mx-auto text-center' },
         React.createElement('span', { className: 'text-xs uppercase tracking-[0.3em] text-[#C9A84C] block mb-2' }, 'Collector Words'),
         React.createElement(
           'div',
-          { className: 'p-8 sm:p-12 bg-gradient-to-b from-[#141416] to-[#0E0E0E] border border-[#2B2B32] rounded-2xl relative shadow-2xl' },
-          React.createElement('div', { className: 'text-4xl text-[#C9A84C] font-serif opacity-40 mb-3' }, '"'),
-          React.createElement('p', { className: 'text-base sm:text-xl font-light font-[\'Cormorant_Garamond\'] text-gray-200 leading-relaxed max-w-2xl mx-auto' },
+          { className: 'p-8 sm:p-10 bg-gradient-to-b from-[#141417] to-[#0E0E10] border border-[#2B2B32] rounded-2xl relative shadow-2xl' },
+          React.createElement('div', { className: 'text-3xl text-[#C9A84C] font-serif opacity-40 mb-2' }, '"'),
+          React.createElement('p', { className: 'text-sm sm:text-lg font-light font-[\'Cormorant_Garamond\'] text-gray-200 leading-relaxed max-w-xl mx-auto' },
             'Our Ayat-ul-Kursi piece arrived safely in Lahore, and the photos honestly do not do it justice. When evening spotlight hits the mirror calligraphy, the entire formal drawing room sparkles. Pure magic.'
           ),
-          React.createElement('div', { className: 'mt-6 text-xs uppercase tracking-widest text-[#E8D48B]' }, '— Fatima & Usman R., DHA Lahore')
+          React.createElement('div', { className: 'mt-4 text-xs uppercase tracking-widest text-[#E8D48B]' }, '— Fatima & Usman R., DHA Lahore')
         )
       ),
 
       // --- CONTACT & FOOTER ---
       React.createElement(
         'footer',
-        { id: 'contact', className: 'border-t border-[#222228] bg-[#080808] pt-16 pb-12 px-4 sm:px-10' },
+        { id: 'contact', className: 'border-t border-[#222228] bg-[#08080A] pt-14 pb-12 px-4 sm:px-10' },
         React.createElement(
           'div',
-          { className: 'max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8 mb-12' },
+          { className: 'max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8 mb-10' },
           
           // Column 1: Brand
           React.createElement(
@@ -1308,12 +1529,12 @@
               'div',
               { className: 'flex items-center gap-2' },
               React.createElement('h3', { className: 'font-[\'Cormorant_Garamond\'] text-2xl tracking-widest text-white shimmer-gold' }, 'AYENAH'),
-              React.createElement('span', { className: 'font-nastaliq text-xl text-[#E8D48B]' }, 'آئینہ')
+              React.createElement('span', { className: 'font-nastaliq text-lg text-[#E8D48B]' }, 'آئینہ')
             ),
             React.createElement('p', { className: 'text-xs text-gray-400 leading-relaxed' }, 'Handcrafted luxury mirror mosaic artwork. Custom Arabic calligraphy, mandalas, and luxury decorative statements.'),
             React.createElement(
               'div',
-              { className: 'pt-2' },
+              { className: 'pt-1' },
               React.createElement('a', { href: WEBSITE_URL, target: '_blank', rel: 'noopener noreferrer', className: 'text-xs text-[#E8D48B] hover:underline font-mono' }, 'ayenahofficial.com')
             )
           ),
@@ -1331,30 +1552,24 @@
             )
           ),
 
-          // Column 3: Direct Social & WhatsApp Channels
+          // Column 3: Direct Inquiries (NO raw phone numbers exposed)
           React.createElement(
             'div',
             null,
-            React.createElement('h4', { className: 'text-xs uppercase tracking-wider text-[#C9A84C] mb-3' }, 'Connect & Inquire'),
+            React.createElement('h4', { className: 'text-xs uppercase tracking-wider text-[#C9A84C] mb-3' }, 'Direct Consultation'),
             React.createElement(
               'div',
-              { className: 'space-y-2.5 text-xs text-gray-300' },
+              { className: 'space-y-3 text-xs text-gray-300' },
               React.createElement(
-                'div',
-                null,
-                React.createElement('span', { className: 'text-gray-500 block text-[11px] uppercase' }, 'WhatsApp Consultation:'),
-                React.createElement(
-                  'a',
-                  {
-                    href: `https://wa.me/${WA_NUMBER}?text=${directWhatsAppGreeting}`,
-                    target: '_blank',
-                    rel: 'noopener noreferrer',
-                    className: 'text-emerald-400 hover:text-emerald-300 font-mono font-medium flex items-center gap-1.5 mt-0.5'
-                  },
-                  React.createElement('span', null, '💬'),
-                  React.createElement('span', null, WA_DISPLAY),
-                  React.createElement('span', { className: 'text-[10px] bg-emerald-500/10 border border-emerald-500/30 rounded px-1.5 py-0.5 text-emerald-300 uppercase' }, 'Text Directly')
-                )
+                'a',
+                {
+                  href: `https://wa.me/${WA_NUMBER}?text=${directWhatsAppGreeting}`,
+                  target: '_blank',
+                  rel: 'noopener noreferrer',
+                  className: 'inline-flex items-center gap-2 px-3 py-1.5 rounded bg-emerald-500/15 border border-emerald-500/40 text-emerald-300 hover:bg-emerald-500/25 transition'
+                },
+                React.createElement('span', null, '💬'),
+                React.createElement('span', null, 'Chat with Atelier on WhatsApp')
               ),
               React.createElement(
                 'div',
