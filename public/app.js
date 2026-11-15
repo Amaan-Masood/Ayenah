@@ -221,12 +221,12 @@
       ctx.clearRect(0, 0, width, height);
 
       if (mouse.isActive) {
-        const radial = ctx.createRadialGradient(mouse.x, mouse.y, 0, mouse.x, mouse.y, 140);
-        radial.addColorStop(0, 'rgba(201, 168, 76, 0.08)');
-        radial.addColorStop(0.5, 'rgba(232, 212, 139, 0.03)');
+        const radial = ctx.createRadialGradient(mouse.x, mouse.y, 0, mouse.x, mouse.y, 130);
+        radial.addColorStop(0, 'rgba(255, 255, 255, 0.04)');
+        radial.addColorStop(0.5, 'rgba(232, 212, 139, 0.015)');
         radial.addColorStop(1, 'transparent');
         ctx.fillStyle = radial;
-        ctx.fillRect(mouse.x - 140, mouse.y - 140, 280, 280);
+        ctx.fillRect(mouse.x - 130, mouse.y - 130, 260, 260);
       }
 
       for (let i = particles.length - 1; i >= 0; i--) {
@@ -506,21 +506,21 @@
     return React.createElement(
       'div',
       {
-        className: 'relative max-w-4xl mx-auto mt-8 mb-12 p-1.5 rounded-2xl bg-gradient-to-b from-[#C9A84C]/30 via-[#C9A84C]/10 to-transparent shadow-2xl',
+        className: 'relative max-w-4xl mx-auto mt-8 mb-12 p-[1px] rounded-2xl bg-gradient-to-b from-[#C9A84C]/60 via-[#C9A84C]/25 to-transparent shadow-[0_15px_50px_rgba(0,0,0,0.95)]',
         onMouseEnter: () => setPaused(true),
         onMouseLeave: () => setPaused(false)
       },
       React.createElement(
         'div',
-        { className: 'bg-[#121215]/95 border border-[#2B2B32] rounded-xl overflow-hidden p-6 sm:p-8 backdrop-blur-xl relative' },
+        { className: 'bg-[#050505] border border-[#202024] rounded-xl overflow-hidden p-6 sm:p-8 backdrop-blur-xl relative' },
         
         React.createElement('div', { className: 'flex flex-col md:flex-row items-center gap-8' },
           
-          // Art Canvas Visual with Frame
+          // Art Artwork Visual with Frame
           React.createElement(
             'div',
-            { className: 'w-full md:w-1/2 aspect-square max-w-[320px] bg-[#0A0A0A] border border-[#C9A84C]/30 rounded-xl p-5 relative overflow-hidden shadow-2xl group' },
-            React.createElement('div', { className: 'absolute top-3 left-3 px-2.5 py-0.5 rounded bg-[#0A0A0A]/90 border border-[#C9A84C]/40 text-[10px] uppercase tracking-widest text-[#E8D48B]' }, activeSlide.tag),
+            { className: 'w-full md:w-1/2 aspect-square max-w-[320px] bg-[#000000] border border-[#C9A84C]/40 rounded-xl p-5 relative overflow-hidden shadow-2xl group' },
+            React.createElement('div', { className: 'absolute top-3 left-3 px-2.5 py-0.5 rounded bg-[#000000]/95 border border-[#C9A84C]/50 text-[10px] uppercase tracking-widest text-[#E8D48B]' }, activeSlide.tag),
             React.createElement(MirrorArtGraphic, { type: activeSlide.type })
           ),
 
@@ -648,24 +648,24 @@
           style: style,
           onMouseMove: handleMouseMove,
           onMouseLeave: handleMouseLeave,
-          className: 'mirror-card-3d bg-[#141414] border border-[#2B2B30] group-hover:border-[#C9A84C]/60 rounded-xl overflow-hidden relative'
+          className: 'mirror-card-3d bg-[#060606] border border-[#202024] group-hover:border-[#C9A84C]/70 rounded-xl overflow-hidden relative'
         },
         React.createElement('div', { className: 'mirror-card-glare' }),
 
         React.createElement(
           'div',
-          { className: 'relative w-full aspect-square bg-[#0E0E0E] overflow-hidden p-6' },
+          { className: 'relative w-full aspect-square bg-[#000000] overflow-hidden p-6' },
           React.createElement(MirrorArtGraphic, { type: product.artSvgType }),
           React.createElement(
             'div',
-            { className: 'absolute top-3 left-3 px-2.5 py-1 rounded bg-[#0A0A0A]/85 backdrop-blur-md border border-[#C9A84C]/30 text-[11px] tracking-wider text-[#E8D48B] uppercase' },
+            { className: 'absolute top-3 left-3 px-2.5 py-1 rounded bg-[#000000]/90 backdrop-blur-md border border-[#C9A84C]/40 text-[11px] tracking-wider text-[#E8D48B] uppercase' },
             product.tag
           )
         ),
 
         React.createElement(
           'div',
-          { className: 'p-5 bg-gradient-to-b from-[#141414] to-[#1A1A1A] border-t border-[#26262B]' },
+          { className: 'p-5 bg-[#070707] border-t border-[#1C1C20]' },
           React.createElement(
             'div',
             { className: 'flex justify-between items-center mb-1' },
@@ -749,9 +749,7 @@
 
       React.createElement(
         'div',
-        { className: 'grid grid-cols-1 lg:grid-cols-12 gap-8 bg-[#141416]/90 border border-[#2B2B32] rounded-2xl p-6 sm:p-8 shadow-2xl relative overflow-hidden backdrop-blur-md' },
-        
-        React.createElement('div', { className: 'absolute -top-32 -right-32 w-80 h-80 bg-[#C9A84C]/5 rounded-full blur-3xl pointer-events-none' }),
+        { className: 'grid grid-cols-1 lg:grid-cols-12 gap-8 bg-[#060606] border border-[#202024] rounded-2xl p-6 sm:p-8 shadow-2xl relative overflow-hidden backdrop-blur-md' },
 
         React.createElement(
           'div',
@@ -770,7 +768,7 @@
                   {
                     key: s.id,
                     onClick: () => setShape(s.id),
-                    className: `text-left p-3 rounded-lg border text-xs transition-all ${shape === s.id ? 'border-[#C9A84C] bg-[#C9A84C]/15 text-white shadow-md' : 'border-[#26262B] bg-[#0E0E0E] text-gray-400 hover:border-gray-600'}`
+                    className: `text-left p-3 rounded-lg border text-xs transition-all ${shape === s.id ? 'border-[#C9A84C] bg-[#C9A84C]/20 text-white shadow-md' : 'border-[#1F1F24] bg-[#000000] text-gray-400 hover:border-gray-600'}`
                   },
                   React.createElement('div', { className: 'flex justify-between items-center' },
                     React.createElement('span', { className: 'font-medium' }, s.label),
@@ -795,7 +793,7 @@
                   {
                     key: sz.id,
                     onClick: () => setSize(sz.id),
-                    className: `p-3 rounded-lg border text-xs text-center transition-all ${size === sz.id ? 'border-[#C9A84C] bg-[#C9A84C]/15 text-white shadow-md' : 'border-[#26262B] bg-[#0E0E0E] text-gray-400 hover:border-gray-600'}`
+                    className: `p-3 rounded-lg border text-xs text-center transition-all ${size === sz.id ? 'border-[#C9A84C] bg-[#C9A84C]/20 text-white shadow-md' : 'border-[#1F1F24] bg-[#000000] text-gray-400 hover:border-gray-600'}`
                   },
                   React.createElement('div', { className: 'font-medium' }, sz.label)
                 )
@@ -816,7 +814,7 @@
                   {
                     key: fr.id,
                     onClick: () => setFrame(fr.id),
-                    className: `w-full text-left p-3 rounded-lg border text-xs flex justify-between items-center transition-all ${frame === fr.id ? 'border-[#C9A84C] bg-[#C9A84C]/15 text-white shadow-md' : 'border-[#26262B] bg-[#0E0E0E] text-gray-400 hover:border-gray-600'}`
+                    className: `w-full text-left p-3 rounded-lg border text-xs flex justify-between items-center transition-all ${frame === fr.id ? 'border-[#C9A84C] bg-[#C9A84C]/20 text-white shadow-md' : 'border-[#1F1F24] bg-[#000000] text-gray-400 hover:border-gray-600'}`
                   },
                   React.createElement('span', null, fr.label),
                   React.createElement('span', { className: 'text-gray-400 text-[11px]' }, fr.cost === 0 ? 'Included' : `+PKR ${fr.cost.toLocaleString()}`)
@@ -828,11 +826,11 @@
 
         React.createElement(
           'div',
-          { className: 'lg:col-span-5 bg-[#0E0E0E] border border-[#2B2B32] rounded-xl p-6 flex flex-col justify-between' },
+          { className: 'lg:col-span-5 bg-[#030303] border border-[#202024] rounded-xl p-6 flex flex-col justify-between' },
           React.createElement(
             'div',
             null,
-            React.createElement('div', { className: 'w-full aspect-square bg-[#080808] border border-[#26262B] rounded-lg mb-5 overflow-hidden p-6' },
+            React.createElement('div', { className: 'w-full aspect-square bg-[#000000] border border-[#1F1F24] rounded-lg mb-5 overflow-hidden p-6' },
               React.createElement(MirrorArtGraphic, { type: shape === 'calligraphy' ? 'calligraphy-drop' : shape === 'mandala' ? 'solar-mandala' : shape === 'butterfly' ? 'butterfly' : shape === 'heart' ? 'shattered-heart' : 'geometric' })
             ),
             React.createElement('div', { className: 'flex justify-between items-center' },
@@ -920,10 +918,10 @@
 
     return React.createElement(
       'div',
-      { className: 'fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md' },
+      { className: 'fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/90 backdrop-blur-md' },
       React.createElement(
         'div',
-        { className: 'bg-[#141416] border border-[#C9A84C]/40 rounded-2xl max-w-lg w-full p-6 sm:p-8 relative shadow-2xl overflow-y-auto max-h-[90vh]' },
+        { className: 'bg-[#060606] border border-[#C9A84C]/50 rounded-2xl max-w-lg w-full p-6 sm:p-8 relative shadow-2xl overflow-y-auto max-h-[90vh]' },
         
         React.createElement(
           'button',
@@ -961,7 +959,7 @@
                 value: form.name,
                 onChange: e => setForm({ ...form, name: e.target.value }),
                 placeholder: 'e.g. Sarah Khan',
-                className: 'w-full bg-[#0E0E0E] border border-[#2B2B32] focus:border-[#C9A84C] rounded-lg p-2.5 text-xs text-white outline-none'
+                className: 'w-full bg-[#000000] border border-[#202024] focus:border-[#C9A84C] rounded-lg p-2.5 text-xs text-white outline-none'
               })
             ),
             React.createElement(
@@ -977,7 +975,7 @@
                   value: form.phone,
                   onChange: e => setForm({ ...form, phone: e.target.value }),
                   placeholder: 'Your WhatsApp Number',
-                  className: 'w-full bg-[#0E0E0E] border border-[#2B2B32] focus:border-[#C9A84C] rounded-lg p-2.5 text-xs text-white outline-none'
+                  className: 'w-full bg-[#000000] border border-[#202024] focus:border-[#C9A84C] rounded-lg p-2.5 text-xs text-white outline-none'
                 })
               ),
               React.createElement(
@@ -989,7 +987,7 @@
                   value: form.email,
                   onChange: e => setForm({ ...form, email: e.target.value }),
                   placeholder: 'name@example.com',
-                  className: 'w-full bg-[#0E0E0E] border border-[#2B2B32] focus:border-[#C9A84C] rounded-lg p-2.5 text-xs text-white outline-none'
+                  className: 'w-full bg-[#000000] border border-[#202024] focus:border-[#C9A84C] rounded-lg p-2.5 text-xs text-white outline-none'
                 })
               )
             ),
@@ -1004,7 +1002,7 @@
                   type: 'text',
                   value: form.designType,
                   onChange: e => setForm({ ...form, designType: e.target.value }),
-                  className: 'w-full bg-[#0E0E0E] border border-[#2B2B32] rounded-lg p-2.5 text-xs text-white outline-none'
+                  className: 'w-full bg-[#000000] border border-[#202024] rounded-lg p-2.5 text-xs text-white outline-none'
                 })
               ),
               React.createElement(
@@ -1015,7 +1013,7 @@
                   type: 'text',
                   value: form.customSize,
                   onChange: e => setForm({ ...form, customSize: e.target.value }),
-                  className: 'w-full bg-[#0E0E0E] border border-[#2B2B32] rounded-lg p-2.5 text-xs text-white outline-none'
+                  className: 'w-full bg-[#000000] border border-[#202024] rounded-lg p-2.5 text-xs text-white outline-none'
                 })
               )
             ),
@@ -1028,7 +1026,7 @@
                 value: form.message,
                 onChange: e => setForm({ ...form, message: e.target.value }),
                 placeholder: 'Describe your wall color, preferred calligraphy verse, or mirror layout...',
-                className: 'w-full bg-[#0E0E0E] border border-[#2B2B32] focus:border-[#C9A84C] rounded-lg p-2.5 text-xs text-white outline-none resize-none'
+                className: 'w-full bg-[#000000] border border-[#202024] focus:border-[#C9A84C] rounded-lg p-2.5 text-xs text-white outline-none resize-none'
               })
             ),
             errorMessage && React.createElement('p', { className: 'text-xs text-rose-400' }, errorMessage),
@@ -1253,7 +1251,7 @@
       // --- NAVIGATION ---
       React.createElement(
         'nav',
-        { className: `fixed top-0 left-0 right-0 z-40 transition-all duration-300 px-4 sm:px-10 py-4 flex items-center justify-between ${navScrolled ? 'bg-[#0A0A0A]/95 backdrop-blur-md border-b border-[#C9A84C]/20 shadow-2xl py-3' : 'bg-transparent'}` },
+        { className: `fixed top-0 left-0 right-0 z-40 transition-all duration-300 px-4 sm:px-10 py-4 flex items-center justify-between ${navScrolled ? 'bg-[#000000]/95 backdrop-blur-md border-b border-[#C9A84C]/25 shadow-2xl py-3' : 'bg-transparent'}` },
         
         // Brand Logo with Noto Nastaliq Urdu (Pure Ayenah emblem)
         React.createElement(
@@ -1301,7 +1299,7 @@
       mobileMenuOpen &&
         React.createElement(
           'div',
-          { className: 'fixed inset-0 top-[60px] z-30 bg-[#0A0A0A] p-6 flex flex-col gap-5 text-sm uppercase tracking-widest md:hidden' },
+          { className: 'fixed inset-0 top-[60px] z-30 bg-[#000000] p-6 flex flex-col gap-5 text-sm uppercase tracking-widest md:hidden' },
           React.createElement('a', { href: '#collection', onClick: () => setMobileMenuOpen(false) }, 'Collection'),
           React.createElement('a', { href: '#studio', onClick: () => setMobileMenuOpen(false) }, 'Custom Studio'),
           React.createElement('a', { href: '#craft', onClick: () => setMobileMenuOpen(false) }, 'The Craft'),
@@ -1431,9 +1429,7 @@
         { id: 'craft', className: 'py-20 px-4 sm:px-8 max-w-5xl mx-auto' },
         React.createElement(
           'div',
-          { className: 'p-8 sm:p-12 bg-[#121215]/80 border border-[#2B2B32] rounded-2xl relative shadow-2xl backdrop-blur-md overflow-hidden' },
-          
-          React.createElement('div', { className: 'absolute -top-24 -left-24 w-72 h-72 bg-[#C9A84C]/5 rounded-full blur-3xl pointer-events-none' }),
+          { className: 'p-8 sm:p-12 bg-[#060606] border border-[#202024] rounded-2xl relative shadow-2xl backdrop-blur-md overflow-hidden' },
 
           React.createElement(
             'div',
@@ -1441,9 +1437,9 @@
             React.createElement(
               'div',
               { className: 'md:col-span-4 relative flex items-center justify-center h-48 sm:h-64' },
-              React.createElement('div', { className: 'absolute w-44 h-44 rounded-full border border-[#C9A84C]/25 rotating-ring' }),
+              React.createElement('div', { className: 'absolute w-44 h-44 rounded-full border border-[#C9A84C]/30 rotating-ring' }),
               React.createElement('div', { className: 'absolute w-32 h-32 rounded-full border border-white/10 rotating-ring-rev' }),
-              React.createElement('div', { className: 'w-20 h-20 rounded-full bg-gradient-to-br from-[#C9A84C]/30 to-transparent border border-[#C9A84C] flex items-center justify-center font-nastaliq text-2xl text-[#E8D48B]' }, 'آئینہ')
+              React.createElement('div', { className: 'w-20 h-20 rounded-full bg-[#000000] border border-[#C9A84C] flex items-center justify-center font-nastaliq text-2xl text-[#E8D48B] shadow-[0_0_20px_rgba(201,168,76,0.3)]' }, 'آئینہ')
             ),
             React.createElement(
               'div',
@@ -1484,11 +1480,11 @@
             { step: '01', title: 'Consultation', desc: 'Share your preferred motif, verse, size, and interior mood directly over WhatsApp.' },
             { step: '02', title: 'Design Draft', desc: 'We prepare the geometric layout and mosaic draft tailored to your proportions.' },
             { step: '03', title: 'Handcrafting', desc: 'Each mirror shard is hand-broken, smoothed, and carefully adhered with gold lining.' },
-            { step: '04', title: 'Protected Delivery', desc: 'Reinforced bubble-cushioned and wooden framed packaging delivered safely nationwide.' }
+            { step: '04', title: 'Protected Delivery', desc: 'Reinforced bubble-cushioned packaging delivered safely nationwide.' }
           ].map((item, i) =>
             React.createElement(
               'div',
-              { key: i, className: 'p-6 bg-[#141417]/80 border border-[#26262B] rounded-xl hover:border-[#C9A84C]/50 transition' },
+              { key: i, className: 'p-6 bg-[#060606] border border-[#1F1F24] rounded-xl hover:border-[#C9A84C]/60 transition' },
               React.createElement('div', { className: 'font-[\'Cormorant_Garamond\'] text-3xl text-[#C9A84C] mb-2' }, item.step),
               React.createElement('h3', { className: 'text-base font-medium text-white mb-1.5' }, item.title),
               React.createElement('p', { className: 'text-xs text-gray-400 leading-relaxed' }, item.desc)
@@ -1504,7 +1500,7 @@
         React.createElement('span', { className: 'text-xs uppercase tracking-[0.3em] text-[#C9A84C] block mb-2' }, 'Collector Words'),
         React.createElement(
           'div',
-          { className: 'p-8 sm:p-10 bg-gradient-to-b from-[#141417] to-[#0E0E10] border border-[#2B2B32] rounded-2xl relative shadow-2xl' },
+          { className: 'p-8 sm:p-10 bg-[#060606] border border-[#202024] rounded-2xl relative shadow-2xl' },
           React.createElement('div', { className: 'text-3xl text-[#C9A84C] font-serif opacity-40 mb-2' }, '"'),
           React.createElement('p', { className: 'text-sm sm:text-lg font-light font-[\'Cormorant_Garamond\'] text-gray-200 leading-relaxed max-w-xl mx-auto' },
             'Our Ayat-ul-Kursi piece arrived safely in Lahore, and the photos honestly do not do it justice. When evening spotlight hits the mirror calligraphy, the entire formal drawing room sparkles. Pure magic.'
@@ -1516,7 +1512,7 @@
       // --- CONTACT & FOOTER ---
       React.createElement(
         'footer',
-        { id: 'contact', className: 'border-t border-[#222228] bg-[#08080A] pt-14 pb-12 px-4 sm:px-10' },
+        { id: 'contact', className: 'border-t border-[#1C1C20] bg-[#000000] pt-14 pb-12 px-4 sm:px-10' },
         React.createElement(
           'div',
           { className: 'max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8 mb-10' },
@@ -1625,7 +1621,7 @@
                 type: 'email',
                 required: true,
                 placeholder: 'Your email address',
-                className: 'bg-[#141416] border border-[#2B2B32] rounded p-2 text-xs text-white outline-none flex-1'
+                className: 'bg-[#050505] border border-[#202024] focus:border-[#C9A84C] rounded p-2 text-xs text-white outline-none flex-1'
               }),
               React.createElement('button', { type: 'submit', className: 'btn-luxury-sm' }, 'Join')
             )
