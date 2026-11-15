@@ -1,0 +1,22 @@
+{
+  "name": "ayenah-official-website",
+  "version": "1.0.0",
+  "description": "Luxury Mirror Art on Canvas - Full-Stack Interactive Platform",
+  "main": "server/server.js",
+  "scripts": {
+    "start": "node server/server.js",
+    "dev": "node server/server.js"
+  },
+  "keywords": [
+    "ayenah",
+    "mirror-art",
+    "canvas",
+    "mosaic",
+    "arabic-calligraphy",
+    "mandala",
+    "luxury-art"
+  ],
+  "author": "Ayenah Official",
+  "license": "UNLICENSED",
+  "dependencies": {}
+}

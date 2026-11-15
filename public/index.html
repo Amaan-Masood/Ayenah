@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ayenah Official | Luxury Handcrafted Mirror Art</title>
+  
+  <!-- Tailwind CSS -->
+  <script src="https://www.gstatic.com/antigravity/web/dev/tailwindcss.min.js"></script>
+
+  <!-- Google Fonts: Cormorant Garamond, Noto Nastaliq Urdu & Raleway -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Noto+Nastaliq+Urdu:wght@400;500;600;700&family=Raleway:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- React 18 & ReactDOM -->
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+  <!-- Fallback React local inline if unpkg is blocked -->
+  <script>
+    if (!window.React) {
+      document.write('<script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"><\/script>');
+      document.write('<script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"><\/script>');
+    }
+  </script>
+
+  <style>
+    :root {
+      --noir: #0A0A0A;
+      --charcoal: #141414;
+      --card-bg: #1A1A1A;
+      --gold-antique: #C9A84C;
+      --gold-light: #E8D48B;
+      --gold-bright: #F5E6A3;
+      --mirror-silver: #C0C0C0;
+      --mirror-white: #E8E8E8;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--noir);
+      color: var(--mirror-white);
+      font-family: 'Raleway', sans-serif;
+      overflow-x: hidden;
+      cursor: default;
+    }
+
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--noir); }
+    ::-webkit-scrollbar-thumb { background: var(--gold-antique); border-radius: 3px; }
+
+    /* Noto Nastaliq Urdu Class */
+    .font-nastaliq {
+      font-family: 'Noto Nastaliq Urdu', serif;
+      line-height: 1.9;
+      display: inline-block;
+      vertical-align: middle;
+    }
+
+    /* Shimmering Text Animation */
+    .shimmer-gold {
+      background: linear-gradient(90deg, #A88936, var(--gold-light), #FFFFFF, var(--gold-antique), #A88936);
+      background-size: 250% auto;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: goldShine 5s linear infinite;
+    }
+
+    .shimmer-silver {
+      background: linear-gradient(90deg, #888888, #FFFFFF, var(--mirror-silver), #FFFFFF, #888888);
+      background-size: 250% auto;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: goldShine 4s linear infinite;
+    }
+
+    @keyframes goldShine {
+      0% { background-position: -200% 0; }
+      100% { background-position: 200% 0; }
+    }
+
+    @keyframes pulseGlint {
+      0%, 100% { opacity: 0.3; transform: scale(0.95); }
+      50% { opacity: 1; transform: scale(1.05); }
+    }
+
+    @keyframes rotateMandala {
+      from { transform: translate(-50%, -50%) rotate(0deg); }
+      to { transform: translate(-50%, -50%) rotate(360deg); }
+    }
+
+    .rotating-ring {
+      animation: rotateMandala 25s linear infinite;
+    }
+    .rotating-ring-rev {
+      animation: rotateMandala 20s linear infinite reverse;
+    }
+
+    /* Mirror Card 3D Perspective Container */
+    .mirror-card-container {
+      perspective: 1200px;
+    }
+
+    .mirror-card-3d {
+      transition: transform 0.15s ease-out, box-shadow 0.3s ease;
+      transform-style: preserve-3d;
+      will-change: transform;
+    }
+
+    .mirror-card-glare {
+      pointer-events: none;
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(255,255,255,0.22) 0%, rgba(201,168,76,0.12) 35%, transparent 70%);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      mix-blend-mode: overlay;
+    }
+
+    .mirror-card-3d:hover .mirror-card-glare {
+      opacity: 1;
+    }
+
+    /* Ambient Cursor Canvas Layer */
+    #cursor-mirror-canvas {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 50;
+    }
+
+    /* =========================================
+       HAUTE LUXURY BUTTON DESIGNS
+       ========================================= */
+
+    /* Primary Luxury Gold Button */
+    .btn-luxury-gold {
+      position: relative;
+      background: linear-gradient(135deg, #DFBE63 0%, #C9A84C 50%, #9E7D2E 100%);
+      color: #0A0A0A;
+      font-weight: 600;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      padding: 0.85rem 2.2rem;
+      border-radius: 2px;
+      border: 1px solid rgba(255, 235, 160, 0.5);
+      box-shadow: 0 4px 20px rgba(201, 168, 76, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.45);
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      overflow: hidden;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.6rem;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    /* Light sweep glare on hover */
+    .btn-luxury-gold::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -100%;
+      width: 60%;
+      height: 200%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.6), transparent);
+      transform: rotate(25deg);
+      transition: all 0.75s ease;
+      pointer-events: none;
+    }
+
+    .btn-luxury-gold:hover {
+      background: linear-gradient(135deg, #F0D57F 0%, #DFBE63 50%, #B89339 100%);
+      box-shadow: 0 8px 30px rgba(201, 168, 76, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.7);
+      transform: translateY(-2px);
+      color: #000;
+    }
+
+    .btn-luxury-gold:hover::before {
+      left: 180%;
+    }
+
+    /* Secondary Luxury Glass & Gold Outline Button */
+    .btn-luxury-outline {
+      position: relative;
+      background: rgba(14, 14, 16, 0.65);
+      backdrop-filter: blur(12px);
+      color: #E8D48B;
+      font-weight: 500;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      padding: 0.85rem 2.2rem;
+      border-radius: 2px;
+      border: 1px solid rgba(201, 168, 76, 0.45);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4), inset 0 0 15px rgba(201, 168, 76, 0.05);
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      overflow: hidden;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.6rem;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    /* Outer delicate gold hairline border */
+    .btn-luxury-outline::after {
+      content: '';
+      position: absolute;
+      inset: 2px;
+      border: 1px solid rgba(201, 168, 76, 0.15);
+      pointer-events: none;
+      transition: border-color 0.4s ease;
+    }
+
+    .btn-luxury-outline:hover {
+      border-color: #E8D48B;
+      background: rgba(201, 168, 76, 0.12);
+      color: #FFFFFF;
+      box-shadow: 0 0 25px rgba(201, 168, 76, 0.3), inset 0 0 20px rgba(201, 168, 76, 0.1);
+      transform: translateY(-2px);
+    }
+
+    .btn-luxury-outline:hover::after {
+      border-color: rgba(232, 212, 139, 0.4);
+    }
+
+    /* Compact Luxury Card Button */
+    .btn-luxury-sm {
+      padding: 0.45rem 1.1rem;
+      font-size: 0.68rem;
+      letter-spacing: 0.18em;
+      border-radius: 2px;
+      border: 1px solid rgba(201, 168, 76, 0.5);
+      background: rgba(201, 168, 76, 0.08);
+      color: #E8D48B;
+      text-transform: uppercase;
+      transition: all 0.3s ease;
+    }
+
+    .btn-luxury-sm:hover {
+      background: #C9A84C;
+      color: #0A0A0A;
+      box-shadow: 0 0 15px rgba(201, 168, 76, 0.4);
+      border-color: #E8D48B;
+    }
+
+    /* Floating WhatsApp Luxury Button */
+    .floating-wa-btn {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      z-index: 45;
+      background: linear-gradient(135deg, #1A1A1A, #0A0A0A);
+      border: 1px solid rgba(37, 211, 102, 0.5);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7), 0 0 20px rgba(37, 211, 102, 0.25);
+      padding: 0.65rem 1.2rem;
+      border-radius: 9999px;
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      color: #FFF;
+      text-decoration: none;
+      transition: all 0.35s ease;
+    }
+
+    .floating-wa-btn:hover {
+      border-color: #25D366;
+      box-shadow: 0 12px 35px rgba(37, 211, 102, 0.45), 0 0 25px rgba(201, 168, 76, 0.2);
+      transform: translateY(-3px) scale(1.02);
+    }
+
+    .wa-pulse {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: #25D366;
+      box-shadow: 0 0 0 rgba(37, 211, 102, 0.6);
+      animation: pulseGreen 2s infinite;
+    }
+
+    @keyframes pulseGreen {
+      0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); }
+      70% { box-shadow: 0 0 0 10px rgba(37, 211, 102, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
+    }
+  </style>
+</head>
+<body>
+  <!-- Fullscreen Reactive Cursor Canvas (Tracks mouse to emit light beams & mirror particles) -->
+  <canvas id="cursor-mirror-canvas"></canvas>
+
+  <!-- React Root Element -->
+  <div id="root"></div>
+
+  <!-- React Application Logic -->
+  <script src="/app.js"></script>
+</body>
+</html>
