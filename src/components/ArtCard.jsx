@@ -42,33 +42,53 @@ export default function ArtCard({ product, onSelect }) {
       >
         <div className="mirror-card-glare pointer-events-none absolute inset-0 rounded-inherit opacity-0 group-hover:opacity-100 transition-opacity" />
 
-        <div className="relative w-full aspect-square bg-[#0E0E0E] overflow-hidden p-6">
-          <div className="absolute top-3 left-3 px-2.5 py-1 rounded bg-[#0A0A0A]/80 backdrop-blur-md border border-[#C9A84C]/30 text-[11px] tracking-wider text-[#E8D48B] uppercase">
-            {product.tag}
+        <div className="relative w-full aspect-square bg-[#050505] overflow-hidden">
+          {product.image ? (
+            <picture>
+              <source
+                type="image/webp"
+                srcSet={product.imageThumb ? `${product.imageThumb} 360w, ${product.image} 1200w` : `${product.image} 1200w`}
+                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+              />
+              <img
+                src={product.imagePng || product.image}
+                alt={product.imageAlt || product.title}
+                loading="lazy"
+                className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700 ease-out"
+              />
+            </picture>
+          ) : (
+            <div className="w-full h-full bg-[#0E0E0E]" />
+          )}
+          <div className="absolute top-3 left-3 px-2 py-0.5 rounded bg-black/80 backdrop-blur-md border border-[#C9A84C]/35 text-[9.5px] tracking-wider text-[#E8D48B] uppercase font-medium shadow-sm">
+            {product.tag || product.kind}
           </div>
         </div>
 
-        <div className="p-5 bg-gradient-to-b from-[#141414] to-[#1A1A1A] border-t border-[#26262B]">
-          <div className="flex justify-between items-start mb-1">
-            <h3 className="font-['Cormorant_Garamond'] text-xl font-normal text-white group-hover:text-[#E8D48B] transition-colors">
+        <div className="p-4 sm:p-5 bg-[#070707] border-t border-[#1C1C20] flex flex-col justify-between">
+          <div className="space-y-1.5 mb-3">
+            <div className="flex justify-between items-center text-[10px] sm:text-[11px] tracking-wider uppercase font-medium text-[#C9A84C]">
+              <span className="truncate pr-2 text-gray-400">{product.kind || product.category || 'Luxury Mirrorwork'}</span>
+              <span className="font-nastaliq text-xs sm:text-sm text-[#E8D48B] flex-shrink-0">{product.urduTitle}</span>
+            </div>
+            <h3 className="font-['Cormorant_Garamond'] text-lg sm:text-xl font-medium text-white group-hover:text-[#E8D48B] transition-colors leading-snug min-h-[2.8rem] flex items-center">
               {product.title}
             </h3>
-            <span className="font-['Cormorant_Garamond'] text-sm text-[#C9A84C]">
-              {product.urduTitle}
-            </span>
+            <p className="text-[11px] sm:text-xs text-gray-400 flex items-center gap-1.5 pt-0.5">
+              <span className="inline-block w-1.5 h-1.5 rounded-full bg-[#C9A84C] flex-shrink-0" />
+              <span className="truncate">{product.mirrorPieces}</span>
+            </p>
           </div>
-          <p className="text-xs text-gray-400 mb-3 flex items-center gap-1.5">
-            <span className="inline-block w-1.5 h-1.5 rounded-full bg-[#C9A84C]" />
-            {product.mirrorPieces}
-          </p>
-          <div className="flex items-center justify-between pt-2 border-t border-white/5">
-            <div>
-              <span className="text-xs text-gray-500 block uppercase tracking-wider">Investment</span>
-              <span className="text-sm font-semibold text-[#E8D48B]">PKR {product.pricePKR.toLocaleString()}</span>
-              <span className="text-[11px] text-gray-400 font-mono ml-1">(${product.priceUSD})</span>
+          <div className="flex items-center justify-between pt-3 border-t border-[#202025] gap-3">
+            <div className="min-w-0 flex-1">
+              <span className="text-[10px] text-gray-500 block uppercase tracking-widest leading-none mb-1">Investment</span>
+              <div className="flex items-baseline flex-wrap gap-x-1.5">
+                <span className="text-sm font-semibold text-[#E8D48B] whitespace-nowrap">PKR {product.pricePKR.toLocaleString()}</span>
+                <span className="text-[10px] text-gray-400 font-mono whitespace-nowrap">(${product.priceUSD})</span>
+              </div>
             </div>
-            <button className="px-3 py-1.5 text-xs uppercase tracking-widest text-[#E8D48B] group-hover:bg-[#C9A84C]/20 border border-[#C9A84C]/40 rounded transition">
-              Inquire
+            <button className="btn-luxury-sm !px-3 !py-1.5 whitespace-nowrap text-[10.5px] flex-shrink-0">
+              View Details
             </button>
           </div>
         </div>

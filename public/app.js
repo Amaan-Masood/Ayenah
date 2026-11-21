@@ -57,11 +57,11 @@
         this.y = y;
         this.vx = vx;
         this.vy = vy;
-        this.size = Math.random() * 9 + 4;
+        this.size = Math.random() * 4 + 2;
         this.rotation = Math.random() * Math.PI * 2;
         this.vRot = (Math.random() - 0.5) * 0.12;
-        this.opacity = 1;
-        this.decay = Math.random() * 0.02 + 0.015;
+        this.opacity = 0.9;
+        this.decay = Math.random() * 0.035 + 0.025;
         this.aspect = Math.random() * 0.6 + 0.3;
 
         const rand = Math.random();
@@ -119,11 +119,11 @@
 
     class StarSparkle {
       constructor(x, y) {
-        this.x = x + (Math.random() - 0.5) * 35;
-        this.y = y + (Math.random() - 0.5) * 35;
-        this.size = Math.random() * 5 + 3;
+        this.x = x + (Math.random() - 0.5) * 20;
+        this.y = y + (Math.random() - 0.5) * 20;
+        this.size = Math.random() * 3 + 2;
         this.scale = 0.1;
-        this.maxScale = Math.random() * 1.4 + 0.8;
+        this.maxScale = Math.random() * 0.9 + 0.5;
         this.phase = 'in';
         this.color = Math.random() > 0.5 ? '#E8D48B' : '#FFFFFF';
       }
@@ -143,7 +143,7 @@
         ctx.translate(this.x, this.y);
         ctx.fillStyle = this.color;
         ctx.shadowColor = this.color;
-        ctx.shadowBlur = 8;
+        ctx.shadowBlur = 6;
 
         const s = this.size * this.scale;
         ctx.beginPath();
@@ -159,6 +159,9 @@
     }
 
     window.addEventListener('mousemove', (e) => {
+      // Don't spawn if cursor is off-screen or entering at top-left edge
+      if (e.clientX < 40 || e.clientY < 40) return;
+
       mouse.isActive = true;
       const dx = e.clientX - mouse.prevX;
       const dy = e.clientY - mouse.prevY;
@@ -166,21 +169,22 @@
       mouse.x = e.clientX;
       mouse.y = e.clientY;
 
-      const count = Math.min(Math.floor(mouse.speed / 4) + 1, 4);
-      for (let i = 0; i < count; i++) {
+      // Only emit subtle shard if user is actively moving cursor
+      if (mouse.speed > 8 && particles.length < 12) {
         const angle = Math.random() * Math.PI * 2;
-        const velocity = Math.random() * 2.5 + 0.5;
+        const velocity = Math.random() * 1.5 + 0.4;
         particles.push(
           new MirrorShard(
-            mouse.x + (Math.random() - 0.5) * 10,
-            mouse.y + (Math.random() - 0.5) * 10,
+            mouse.x + (Math.random() - 0.5) * 8,
+            mouse.y + (Math.random() - 0.5) * 8,
             Math.cos(angle) * velocity,
             Math.sin(angle) * velocity
           )
         );
       }
 
-      if (Math.random() > 0.4) {
+      // Sparkles only on deliberate swift movement
+      if (mouse.speed > 14 && Math.random() > 0.85 && sparkles.length < 4) {
         sparkles.push(new StarSparkle(mouse.x, mouse.y));
       }
 
@@ -190,19 +194,22 @@
 
     window.addEventListener('touchmove', (e) => {
       if (e.touches && e.touches[0]) {
+        if (e.touches[0].clientY < 40) return;
         mouse.isActive = true;
         mouse.x = e.touches[0].clientX;
         mouse.y = e.touches[0].clientY;
-        for (let i = 0; i < 2; i++) {
-          particles.push(new MirrorShard(mouse.x, mouse.y, (Math.random() - 0.5) * 3, (Math.random() - 0.5) * 3));
+        if (particles.length < 8) {
+          particles.push(new MirrorShard(mouse.x, mouse.y, (Math.random() - 0.5) * 2, (Math.random() - 0.5) * 2));
         }
       }
     }, { passive: true });
 
     window.addEventListener('click', (e) => {
-      for (let i = 0; i < 18; i++) {
-        const angle = (Math.PI * 2 * i) / 18 + Math.random() * 0.3;
-        const force = Math.random() * 4.5 + 1.5;
+      if (e.clientY < 50) return;
+      // Gentle micro-glint of 4 shards max on click
+      for (let i = 0; i < 4; i++) {
+        const angle = (Math.PI * 2 * i) / 4 + Math.random() * 0.3;
+        const force = Math.random() * 2 + 1;
         particles.push(
           new MirrorShard(
             e.clientX,
@@ -212,7 +219,7 @@
           )
         );
       }
-      for (let j = 0; j < 5; j++) {
+      if (sparkles.length < 4) {
         sparkles.push(new StarSparkle(e.clientX, e.clientY));
       }
     });
@@ -450,43 +457,69 @@
     const slides = [
       {
         id: 'c-1',
-        title: 'Sacred Allah Teardrop Calligraphy',
-        urdu: 'خطاطی اسمِ جلالہ',
-        type: 'calligraphy-drop',
-        tag: 'Signature Exhibition',
-        desc: 'Over 1,200 micro-cut mirror facets catching room spotlights, forming the sacred name inside an elegant teardrop silhouette.'
+        title: 'Solaris Mirror Mandala',
+        urdu: 'شمس دائرہ منڈالا',
+        type: 'solar-mandala',
+        tag: 'Bestseller Artwork',
+        img: '/assets/solaris.webp',
+        thumb: '/assets/solaris-360.webp',
+        alt: 'Circular sunburst mosaic in silver and champagne mirror petals',
+        desc: 'Concentric rings of hand-placed silver mirror petals combined with subtle gold-toned accents. Radiates tranquility and meditative symmetry in luxury interiors.'
       },
       {
         id: 'c-2',
+        title: 'Sacred Noor Calligraphy',
+        urdu: 'خطاطی نور الہیٰ',
+        type: 'calligraphy-drop',
+        tag: 'Signature Masterpiece',
+        img: '/assets/sacred-noor.webp',
+        thumb: '/assets/sacred-noor-360.webp',
+        alt: 'Teardrop-shaped mirrorwork motif on a dark backing',
+        desc: 'Sacred Arabic calligraphy rendered in diamond-shaped mirror facets on a charcoal backing. Every angle reflects morning sun and ambient lamp light uniquely.'
+      },
+      {
+        id: 'c-3',
         title: 'Metamorphosis Crystal Butterfly',
         urdu: 'پروانہ آئینہ',
         type: 'butterfly',
         tag: 'Contemporary Mosaic',
-        desc: 'One wing sculpted in dense mirror reflection while the opposite wing disperses into sparkling mirror crystal dust.'
-      },
-      {
-        id: 'c-3',
-        title: 'Golden Tree of Life Foliage',
-        urdu: 'شجرۂ حیات',
-        type: 'tree-of-life',
-        tag: 'Grand Masterpiece',
-        desc: 'Sculpted golden trunk radiating into hundreds of faceted mirror leaves, bathing your interior in radiant light.'
+        img: '/assets/butterfly.webp',
+        thumb: '/assets/butterfly-360.webp',
+        alt: 'Butterfly mosaic with a wing dispersing into mirror fragments',
+        desc: 'One wing sculpted in dense mirror reflection while the opposite wing disperses into sparkling mirror crystal dust. Symbolizing transformation and liberation.'
       },
       {
         id: 'c-4',
-        title: 'Celestial Swan in Glass Facets',
-        urdu: 'قازِ ضیاء',
-        type: 'swan',
-        tag: 'Rare Collector Edition',
-        desc: 'Graceful swan silhouette rendered purely in glistening micro mirror points that sparkle in the evening twilight.'
+        title: 'Tree of Life Mirror Artwork',
+        urdu: 'شجرۂ حیات',
+        type: 'tree-of-life',
+        tag: 'Grand Masterpiece',
+        img: '/assets/tree.webp',
+        thumb: '/assets/tree-360.webp',
+        alt: 'Spreading tree mosaic with silver leaves and a brass-toned trunk',
+        desc: 'A gold-toned trunk branching into a majestic crown of individually placed mirror leaves, scattering light throughout the room with every subtle movement.'
       },
       {
         id: 'c-5',
-        title: 'Shattered Heart of Radiance',
-        urdu: 'قلبِ بلور',
-        type: 'shattered-heart',
-        tag: 'Emotional Luxury',
-        desc: 'Intricate broken mirror shards harmonized into a symbol of emotional depth and luminous healing.'
+        title: 'Celestial Swan in Jewels',
+        urdu: 'قازِ ضیاء',
+        type: 'swan',
+        tag: 'Rare Collector Edition',
+        img: '/assets/swan.webp',
+        thumb: '/assets/swan-360.webp',
+        alt: 'Swan motif with a raised wing made of silver mirror facets',
+        desc: 'Small mirror facets trace the poetic shape of a swan, with a raised wing that catches the ambient light like stars in evening twilight.'
+      },
+      {
+        id: 'c-6',
+        title: 'Ayat-ul-Kursi Divine Arc',
+        urdu: 'آیت الکرسی مبارک',
+        type: 'grand-calligraphy',
+        tag: 'Exclusive Commission',
+        img: '/assets/divine-arc.webp',
+        thumb: '/assets/divine-arc-360.webp',
+        alt: 'Sweeping arched mirrorwork motif on a dark backing',
+        desc: 'A large-format interpretation of the Throne Verse in flowing thuluth script, hand-sculpted with mirrored crystal shards and antique-gold detailing.'
       }
     ];
 
@@ -516,12 +549,21 @@
         
         React.createElement('div', { className: 'flex flex-col md:flex-row items-center gap-8' },
           
-          // Art Artwork Visual with Frame
+          // Art Artwork Visual with Frame & Authentic Live Site Photography
           React.createElement(
             'div',
-            { className: 'w-full md:w-1/2 aspect-square max-w-[320px] bg-[#000000] border border-[#C9A84C]/40 rounded-xl p-5 relative overflow-hidden shadow-2xl group' },
-            React.createElement('div', { className: 'absolute top-3 left-3 px-2.5 py-0.5 rounded bg-[#000000]/95 border border-[#C9A84C]/50 text-[10px] uppercase tracking-widest text-[#E8D48B]' }, activeSlide.tag),
-            React.createElement(MirrorArtGraphic, { type: activeSlide.type })
+            { className: 'w-full md:w-1/2 aspect-square max-w-[320px] bg-[#000000] border border-[#C9A84C]/40 rounded-xl relative overflow-hidden shadow-2xl group' },
+            React.createElement('div', { className: 'absolute top-3 left-3 z-10 px-2.5 py-0.5 rounded bg-[#000000]/95 border border-[#C9A84C]/50 text-[10px] uppercase tracking-widest text-[#E8D48B]' }, activeSlide.tag),
+            activeSlide.img
+              ? React.createElement('img', {
+                  key: activeSlide.id,
+                  src: activeSlide.img,
+                  srcSet: activeSlide.thumb ? `${activeSlide.thumb} 360w, ${activeSlide.img} 619w` : undefined,
+                  sizes: '(max-width: 768px) 300px, 320px',
+                  alt: activeSlide.alt || activeSlide.title,
+                  className: 'w-full h-full object-cover group-hover:scale-105 transition-all duration-700 ease-out'
+                })
+              : React.createElement(MirrorArtGraphic, { type: activeSlide.type })
           ),
 
           // Slide Text & Commission Action
@@ -602,9 +644,9 @@
   }
 
   // ==========================================
-  // 4. INTERACTIVE 3D ART CARD
+  // 4. INTERACTIVE 3D ART CARD & AUTHENTIC PHOTOGRAPHY
   // ==========================================
-  function ArtCard({ product, onSelect }) {
+  function ArtCard({ product, onSelect, onOpenDetails }) {
     const cardRef = useRef(null);
     const [style, setStyle] = useState({});
 
@@ -639,7 +681,7 @@
       'div',
       {
         className: 'mirror-card-container group cursor-pointer',
-        onClick: () => onSelect(product)
+        onClick: () => onOpenDetails ? onOpenDetails(product) : onSelect(product)
       },
       React.createElement(
         'div',
@@ -648,48 +690,84 @@
           style: style,
           onMouseMove: handleMouseMove,
           onMouseLeave: handleMouseLeave,
-          className: 'mirror-card-3d bg-[#060606] border border-[#202024] group-hover:border-[#C9A84C]/70 rounded-xl overflow-hidden relative'
+          className: 'mirror-card-3d bg-[#060606] border border-[#202024] group-hover:border-[#C9A84C]/70 rounded-xl overflow-hidden relative shadow-lg'
         },
         React.createElement('div', { className: 'mirror-card-glare' }),
 
         React.createElement(
           'div',
-          { className: 'relative w-full aspect-square bg-[#000000] overflow-hidden p-6' },
-          React.createElement(MirrorArtGraphic, { type: product.artSvgType }),
+          { className: 'relative w-full aspect-square bg-[#020202] overflow-hidden' },
+          product.image
+            ? React.createElement(
+                'picture',
+                null,
+                React.createElement('source', {
+                  type: 'image/webp',
+                  srcSet: product.imageThumb ? `${product.imageThumb} 360w, ${product.image} 1200w` : `${product.image} 1200w`,
+                  sizes: '(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw'
+                }),
+                React.createElement('img', {
+                  src: product.imagePng || product.image,
+                  alt: product.imageAlt || product.title,
+                  loading: 'lazy',
+                  className: 'w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700 ease-out'
+                })
+              )
+            : React.createElement(MirrorArtGraphic, { type: product.artSvgType }),
           React.createElement(
             'div',
-            { className: 'absolute top-3 left-3 px-2.5 py-1 rounded bg-[#000000]/90 backdrop-blur-md border border-[#C9A84C]/40 text-[11px] tracking-wider text-[#E8D48B] uppercase' },
-            product.tag
+            { className: 'absolute top-3 left-3 px-2 py-0.5 rounded bg-black/80 backdrop-blur-md border border-[#C9A84C]/35 text-[9.5px] tracking-wider text-[#E8D48B] uppercase font-medium shadow-sm' },
+            product.tag || product.kind
           )
         ),
 
         React.createElement(
           'div',
-          { className: 'p-5 bg-[#070707] border-t border-[#1C1C20]' },
+          { className: 'p-4 sm:p-5 bg-[#070707] border-t border-[#1C1C20] flex flex-col justify-between' },
           React.createElement(
             'div',
-            { className: 'flex justify-between items-center mb-1' },
-            React.createElement('h3', { className: 'font-[\'Cormorant_Garamond\'] text-xl font-normal text-white group-hover:text-[#E8D48B] transition-colors' }, product.title),
-            React.createElement('span', { className: 'font-nastaliq text-base text-[#C9A84C]' }, product.urduTitle)
-          ),
-          React.createElement('p', { className: 'text-xs text-gray-400 mb-3 flex items-center gap-1.5' },
-            React.createElement('span', { className: 'inline-block w-1.5 h-1.5 rounded-full bg-[#C9A84C]' }),
-            product.mirrorPieces
-          ),
-          React.createElement(
-            'div',
-            { className: 'flex items-center justify-between pt-2 border-t border-white/5' },
+            { className: 'space-y-1.5 mb-3' },
+            // Sub-eyebrow row: Category Tag on left, Urdu Calligraphic title on right
             React.createElement(
               'div',
-              null,
-              React.createElement('span', { className: 'text-[11px] text-gray-500 block uppercase tracking-wider' }, 'Investment'),
-              React.createElement('span', { className: 'text-sm font-semibold text-[#E8D48B]' }, `PKR ${product.pricePKR.toLocaleString()} `),
-              React.createElement('span', { className: 'text-[11px] text-gray-400 font-mono' }, `($${product.priceUSD})`)
+              { className: 'flex justify-between items-center text-[10px] sm:text-[11px] tracking-wider uppercase font-medium text-[#C9A84C]' },
+              React.createElement('span', { className: 'truncate pr-2 text-gray-400' }, product.kind || product.category || 'Luxury Mirrorwork'),
+              React.createElement('span', { className: 'font-nastaliq text-xs sm:text-sm text-[#E8D48B] flex-shrink-0' }, product.urduTitle)
+            ),
+            // Full Width Title: English title gets 100% width, never squeezed by Urdu!
+            React.createElement(
+              'h3',
+              { className: 'font-[\'Cormorant_Garamond\'] text-lg sm:text-xl font-medium text-white group-hover:text-[#E8D48B] transition-colors leading-snug min-h-[2.8rem] flex items-center' },
+              product.title
+            ),
+            // Facet count with gold dot
+            React.createElement(
+              'p',
+              { className: 'text-[11px] sm:text-xs text-gray-400 flex items-center gap-1.5 pt-0.5' },
+              React.createElement('span', { className: 'inline-block w-1.5 h-1.5 rounded-full bg-[#C9A84C] flex-shrink-0' }),
+              React.createElement('span', { className: 'truncate' }, product.mirrorPieces)
+            )
+          ),
+
+          // Bottom Pricing & Action Bar with comfortable separation
+          React.createElement(
+            'div',
+            { className: 'flex items-center justify-between pt-3 border-t border-[#202025] gap-3' },
+            React.createElement(
+              'div',
+              { className: 'min-w-0 flex-1' },
+              React.createElement('span', { className: 'text-[10px] text-gray-500 block uppercase tracking-widest leading-none mb-1' }, 'Investment'),
+              React.createElement(
+                'div',
+                { className: 'flex items-baseline flex-wrap gap-x-1.5' },
+                React.createElement('span', { className: 'text-sm font-semibold text-[#E8D48B] whitespace-nowrap' }, `PKR ${product.pricePKR.toLocaleString()}`),
+                React.createElement('span', { className: 'text-[10px] text-gray-400 font-mono whitespace-nowrap' }, `($${product.priceUSD})`)
+              )
             ),
             React.createElement(
               'button',
-              { className: 'btn-luxury-sm' },
-              'Inquire'
+              { className: 'btn-luxury-sm !px-3 !py-1.5 whitespace-nowrap text-[10.5px] flex-shrink-0' },
+              'View Details'
             )
           )
         )
@@ -725,6 +803,14 @@
       { id: 'gold', label: 'Antique Gold Bevel Edge Accent', cost: 2500 },
       { id: 'shadowbox', label: 'Floating Obsidian Shadow Box Frame', cost: 4000 }
     ];
+
+    const motifImages = {
+      calligraphy: { img: '/assets/sacred-noor.webp', alt: 'Arabic calligraphy mirror motif' },
+      mandala: { img: '/assets/solaris.webp', alt: 'Sacred mandala mirror motif' },
+      butterfly: { img: '/assets/butterfly.webp', alt: 'Butterfly silhouette mirror motif' },
+      heart: { img: '/assets/heart.webp', alt: 'Shattered heart mirror motif' },
+      geometric: { img: '/assets/prism.webp', alt: 'Prism geometry mirror motif' }
+    };
 
     const selectedShapeObj = shapes.find(s => s.id === shape);
     const selectedSizeObj = sizes.find(s => s.id === size);
@@ -768,11 +854,11 @@
                   {
                     key: s.id,
                     onClick: () => setShape(s.id),
-                    className: `text-left p-3 rounded-lg border text-xs transition-all ${shape === s.id ? 'border-[#C9A84C] bg-[#C9A84C]/20 text-white shadow-md' : 'border-[#1F1F24] bg-[#000000] text-gray-400 hover:border-gray-600'}`
+                    className: `text-left p-3.5 rounded-lg border text-xs transition-all ${s.id === 'geometric' ? 'sm:col-span-2' : ''} ${shape === s.id ? 'border-[#C9A84C] bg-[#C9A84C]/20 text-white shadow-md' : 'border-[#1F1F24] bg-[#000000] text-gray-400 hover:border-gray-600'}`
                   },
-                  React.createElement('div', { className: 'flex justify-between items-center' },
-                    React.createElement('span', { className: 'font-medium' }, s.label),
-                    React.createElement('span', { className: 'font-nastaliq text-sm text-[#C9A84C]' }, s.urdu)
+                  React.createElement('div', { className: 'flex justify-between items-center gap-2' },
+                    React.createElement('span', { className: 'font-medium text-white' }, s.label),
+                    React.createElement('span', { className: 'font-nastaliq text-sm text-[#E8D48B]' }, s.urdu)
                   ),
                   React.createElement('div', { className: 'text-[11px] text-gray-500 mt-1' }, `Avg: ${s.mirrors} Hand-Cut Shards`)
                 )
@@ -830,8 +916,19 @@
           React.createElement(
             'div',
             null,
-            React.createElement('div', { className: 'w-full aspect-square bg-[#000000] border border-[#1F1F24] rounded-lg mb-5 overflow-hidden p-6' },
-              React.createElement(MirrorArtGraphic, { type: shape === 'calligraphy' ? 'calligraphy-drop' : shape === 'mandala' ? 'solar-mandala' : shape === 'butterfly' ? 'butterfly' : shape === 'heart' ? 'shattered-heart' : 'geometric' })
+            React.createElement(
+              'div',
+              { className: 'w-full aspect-square bg-[#000000] border border-[#1F1F24] rounded-lg mb-5 overflow-hidden relative group' },
+              React.createElement('img', {
+                src: motifImages[shape]?.img || '/assets/sacred-noor.webp',
+                alt: motifImages[shape]?.alt || selectedShapeObj.label,
+                className: 'w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out'
+              }),
+              React.createElement(
+                'span',
+                { className: 'absolute bottom-2 left-2 px-2.5 py-1 rounded bg-black/85 backdrop-blur-md text-[10px] uppercase tracking-wider text-[#E8D48B] border border-[#C9A84C]/30' },
+                'Motif Preview'
+              )
             ),
             React.createElement('div', { className: 'flex justify-between items-center' },
               React.createElement('h4', { className: 'font-[\'Cormorant_Garamond\'] text-xl text-white' }, selectedShapeObj.label),
@@ -870,7 +967,134 @@
   }
 
   // ==========================================
-  // 6. INQUIRY / COMMISSION MODAL
+  // 6. ARTWORK DETAIL MODAL (AUTHENTIC HIGH-RES INSPECTION)
+  // ==========================================
+  function ArtworkDetailModal({ product, isOpen, onClose, onCommission }) {
+    if (!isOpen || !product) return null;
+
+    const waUrl = product.whatsappUrl || `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(`Assalam o Alaikum Ayenah! I'd like to ask about the ${product.title}. Could you share current photos and availability?`)}`;
+
+    return React.createElement(
+      'div',
+      {
+        className: 'fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/90 backdrop-blur-md',
+        onClick: (e) => { if (e.target === e.currentTarget) onClose(); }
+      },
+      React.createElement(
+        'div',
+        {
+          className: 'bg-[#080808] border border-[#C9A84C]/60 rounded-2xl max-w-3xl w-full p-6 sm:p-8 relative shadow-2xl overflow-y-auto max-h-[92vh]'
+        },
+        React.createElement(
+          'button',
+          {
+            onClick: onClose,
+            className: 'absolute top-4 right-4 text-gray-400 hover:text-white text-lg w-8 h-8 rounded-full bg-white/5 flex items-center justify-center transition'
+          },
+          '✕'
+        ),
+        React.createElement(
+          'div',
+          { className: 'grid grid-cols-1 md:grid-cols-12 gap-6 items-center' },
+          
+          // Large High-Res Artwork Image
+          React.createElement(
+            'div',
+            { className: 'md:col-span-6 relative aspect-square bg-[#000000] rounded-xl overflow-hidden border border-[#202024] group' },
+            product.image
+              ? React.createElement(
+                  'picture',
+                  null,
+                  React.createElement('source', {
+                    type: 'image/webp',
+                    srcSet: product.image
+                  }),
+                  React.createElement('img', {
+                    src: product.imagePng || product.image,
+                    alt: product.imageAlt || product.title,
+                    className: 'w-full h-full object-cover group-hover:scale-105 transition-transform duration-700'
+                  })
+                )
+              : React.createElement(MirrorArtGraphic, { type: product.artSvgType }),
+            React.createElement(
+              'div',
+              { className: 'absolute bottom-2 left-2 px-2.5 py-1 rounded bg-black/80 text-[10px] uppercase tracking-widest text-[#E8D48B] border border-[#C9A84C]/30' },
+              'Original Master HD Artwork'
+            )
+          ),
+
+          // Artwork Specs & Actions
+          React.createElement(
+            'div',
+            { className: 'md:col-span-6 space-y-4 text-left' },
+            React.createElement('div', { className: 'flex justify-between items-start' },
+              React.createElement('span', { className: 'text-xs uppercase tracking-widest text-[#C9A84C]' }, product.kind || product.category),
+              React.createElement('span', { className: 'font-nastaliq text-xl text-[#E8D48B]' }, product.urduTitle)
+            ),
+            React.createElement('h3', { className: 'font-[\'Cormorant_Garamond\'] text-2xl sm:text-3xl text-white font-light' }, product.title),
+            React.createElement('p', { className: 'text-xs sm:text-sm text-gray-300 leading-relaxed' }, product.description),
+
+            // Technical Specs
+            React.createElement(
+              'div',
+              { className: 'grid grid-cols-2 gap-3 py-3 border-y border-white/10' },
+              React.createElement('div', null,
+                React.createElement('span', { className: 'text-[11px] text-gray-500 uppercase block tracking-wider' }, 'Dimensions'),
+                React.createElement('strong', { className: 'text-xs text-white' }, product.dimensions)
+              ),
+              React.createElement('div', null,
+                React.createElement('span', { className: 'text-[11px] text-gray-500 uppercase block tracking-wider' }, 'Mirrorwork Facets'),
+                React.createElement('strong', { className: 'text-xs text-white' }, product.mirrorPieces)
+              )
+            ),
+
+            // Price Display
+            React.createElement(
+              'div',
+              { className: 'flex items-baseline gap-2' },
+              React.createElement('span', { className: 'text-xl sm:text-2xl font-semibold text-[#E8D48B]' }, `PKR ${product.pricePKR.toLocaleString()}`),
+              React.createElement('span', { className: 'text-xs text-gray-400 font-mono' }, `($${product.priceUSD} USD)`)
+            ),
+
+            // Action Buttons
+            React.createElement(
+              'div',
+              { className: 'space-y-2.5 pt-2' },
+              React.createElement(
+                'a',
+                {
+                  href: waUrl,
+                  target: '_blank',
+                  rel: 'noopener noreferrer',
+                  className: 'w-full btn-luxury-gold justify-center'
+                },
+                React.createElement('span', null, 'Inquire on WhatsApp Directly'),
+                React.createElement('span', { className: 'text-sm' }, '💬')
+              ),
+              React.createElement(
+                'button',
+                {
+                  onClick: () => {
+                    onClose();
+                    onCommission({
+                      designType: product.title,
+                      customSize: product.dimensions,
+                      budget: `PKR ${product.pricePKR.toLocaleString()}`
+                    });
+                  },
+                  className: 'w-full btn-luxury-outline justify-center text-xs'
+                },
+                'Request Custom Size or Variation'
+              )
+            )
+          )
+        )
+      )
+    );
+  }
+
+  // ==========================================
+  // 7. INQUIRY / COMMISSION MODAL
   // ==========================================
   function InquiryModal({ isOpen, onClose, initialData }) {
     if (!isOpen) return null;
@@ -1059,120 +1283,348 @@
     );
   }
 
-  // Default fallback products
+  // Default fallback products with authentic live site images
   const INITIAL_PRODUCTS = [
-    {
-      id: "ay-01",
-      title: "Sacred Noor Calligraphy",
-      urduTitle: "خطاطی نور الہیٰ",
-      category: "calligraphy",
-      tag: "Signature Masterpiece",
-      dimensions: "24\" x 36\" Gallery Piece",
-      mirrorPieces: "Over 1,200 hand-cut micro mirror shards",
-      pricePKR: 18500,
-      priceUSD: 68,
-      description: "Sacred Arabic script rendered with diamond-faceted mirrors on deep charcoal black finish. Every angle reflects morning sun and ambient lamp light uniquely.",
-      featured: true,
-      artSvgType: "calligraphy-drop"
-    },
-    {
-      id: "ay-02",
-      title: "Solaris Mirror Mandala",
-      urduTitle: "شمس دائرہ منڈالا",
-      category: "mandala",
-      tag: "Bestseller",
-      dimensions: "20\" x 20\" Square Motif",
-      mirrorPieces: "Over 850 circular & teardrop mirrors",
-      pricePKR: 14000,
-      priceUSD: 52,
-      description: "Concentric rings of hand-placed silver mirror petals combined with subtle 24k gold leaf contour dots. Radiates tranquility and meditative symmetry.",
-      featured: true,
-      artSvgType: "solar-mandala"
-    },
-    {
-      id: "ay-03",
-      title: "Metamorphosis Crystal Butterfly",
-      urduTitle: "پروانہ آئینہ",
-      category: "nature",
-      tag: "Trending",
-      dimensions: "16\" x 16\" Deep Shadow Box",
-      mirrorPieces: "640 shimmering mirror fragments",
-      pricePKR: 11500,
-      priceUSD: 42,
-      description: "One wing sculpted in complete dense mirror mosaic while the opposite wing gradually disperses into sparkling mirror dust. Symbolizing growth and liberation.",
-      featured: true,
-      artSvgType: "butterfly"
-    },
-    {
-      id: "ay-04",
-      title: "Prism Geometric Diamonds",
-      urduTitle: "ہندسی منشور",
-      category: "geometric",
-      tag: "Modern Art",
-      dimensions: "18\" x 24\" Vertical Piece",
-      mirrorPieces: "780 precision-cut diamond mirrors",
-      pricePKR: 13200,
-      priceUSD: 48,
-      description: "Sharp contemporary chevron and intersecting diamond axes paved with reflective glass facets. Designed for modern luxury dining and foyer entrances.",
-      featured: false,
-      artSvgType: "geometric"
-    },
-    {
-      id: "ay-05",
-      title: "Shattered Heart of Light",
-      urduTitle: "قلبِ ضیاء",
-      category: "nature",
-      tag: "Romantic Luxury",
-      dimensions: "16\" x 16\" Custom Art",
-      mirrorPieces: "580 mirror shards",
-      pricePKR: 10500,
-      priceUSD: 39,
-      description: "A heart silhouette formed by hand-broken mirror pieces that transition into free-floating crystal fragments. An unforgettable, deeply emotional art gift.",
-      featured: true,
-      artSvgType: "shattered-heart"
-    },
-    {
-      id: "ay-06",
-      title: "Celestial Swan in Jewels",
-      urduTitle: "قازِ ضیاء",
-      category: "nature",
-      tag: "Collector Edition",
-      dimensions: "20\" x 24\" Custom Art",
-      mirrorPieces: "920 faceted mirror points",
-      pricePKR: 16500,
-      priceUSD: 60,
-      description: "A poetic swan silhouette handcrafted with thousands of micro mirror jewel dots that catch ambient light like stars.",
-      featured: true,
-      artSvgType: "swan"
-    },
-    {
-      id: "ay-07",
-      title: "Ayat-ul-Kursi Divine Arc",
-      urduTitle: "آیت الکرسی مبارک",
-      category: "calligraphy",
-      tag: "Exclusive Commission",
-      dimensions: "30\" x 40\" Grand Statement",
-      mirrorPieces: "Over 2,200 micro mirror jewels",
-      pricePKR: 32000,
-      priceUSD: 115,
-      description: "A grand statement piece featuring the sacred throne verse in flowing thuluth script, hand-sculpted with mirrored crystal shards and antique gold leafing.",
-      featured: true,
-      artSvgType: "grand-calligraphy"
-    },
-    {
-      id: "ay-08",
-      title: "Tree of Life Mirror Artwork",
-      urduTitle: "شجرۂ حیات",
-      category: "nature",
-      tag: "Collector's Choice",
-      dimensions: "24\" x 30\" Statement",
-      mirrorPieces: "1,500 mirror foliage shards",
-      pricePKR: 22000,
-      priceUSD: 80,
-      description: "A majestic golden trunk spreading into a shimmering crown of mosaic mirror foliage, scattering light throughout the room with every subtle movement.",
-      featured: false,
-      artSvgType: "tree-of-life"
-    }
+        {
+            "id": "ay-01",
+            "title": "Sacred Noor Calligraphy",
+            "urduTitle": "خطاطی نور الہیٰ",
+            "category": "calligraphy",
+            "kind": "Calligraphy",
+            "tag": "Signature Masterpiece",
+            "dimensions": "24 × 36 in",
+            "mirrorPieces": "Over 1,200 hand-cut facets",
+            "pricePKR": 18500,
+            "priceUSD": 68,
+            "description": "Sacred Arabic calligraphy rendered in diamond-shaped mirror facets on a charcoal backing.",
+            "image": "/assets/sacred-noor.webp",
+            "imagePng": "/assets/Sacred-Noor-Calligraphy.png",
+            "imageThumb": "/assets/sacred-noor-360.webp",
+            "imageAlt": "Teardrop-shaped mirrorwork motif on a dark backing",
+            "featured": true,
+            "artSvgType": "calligraphy-drop",
+            "whatsappUrl": "https://wa.me/923099050832?text=Assalam%20o%20Alaikum%20Ayenah%21%20I%27d%20like%20to%20ask%20about%20the%20Sacred%20Noor%20Calligraphy.%20Could%20you%20share%20current%20photos%20and%20availability%3F"
+        },
+        {
+            "id": "ay-02",
+            "title": "Solaris Mirror Mandala",
+            "urduTitle": "شمس دائرہ منڈالا",
+            "category": "mandala",
+            "kind": "Mandalas",
+            "tag": "Bestseller",
+            "dimensions": "20 × 20 in",
+            "mirrorPieces": "Over 850 mirror petals",
+            "pricePKR": 14000,
+            "priceUSD": 52,
+            "description": "Concentric rings of silver mirror petals, set by hand with gold-toned accents.",
+            "image": "/assets/solaris.webp",
+            "imagePng": "/assets/Solaris-Mirror-Mandala.png",
+            "imageThumb": "/assets/solaris-360.webp",
+            "imageAlt": "Circular sunburst mosaic in silver and champagne mirror petals",
+            "featured": true,
+            "artSvgType": "solar-mandala",
+            "whatsappUrl": "https://wa.me/923099050832?text=Assalam%20o%20Alaikum%20Ayenah%21%20I%27d%20like%20to%20ask%20about%20the%20Solaris%20Mirror%20Mandala.%20Could%20you%20share%20current%20photos%20and%20availability%3F"
+        },
+        {
+            "id": "ay-03",
+            "title": "Metamorphosis Crystal Butterfly",
+            "urduTitle": "پروانہ آئینہ",
+            "category": "nature",
+            "kind": "Nature & forms",
+            "tag": "Trending",
+            "dimensions": "16 × 16 in",
+            "mirrorPieces": "640 mirror fragments",
+            "pricePKR": 11500,
+            "priceUSD": 42,
+            "description": "One wing is densely paved in mirror pieces, while the other breaks into individual glass fragments.",
+            "image": "/assets/butterfly.webp",
+            "imagePng": "/assets/Metamorphosis-Crystal-Butterfly.png",
+            "imageThumb": "/assets/butterfly-360.webp",
+            "imageAlt": "Butterfly mosaic with a wing dispersing into mirror fragments",
+            "featured": true,
+            "artSvgType": "butterfly",
+            "whatsappUrl": "https://wa.me/923099050832?text=Assalam%20o%20Alaikum%20Ayenah%21%20I%27d%20like%20to%20ask%20about%20the%20Metamorphosis%20Crystal%20Butterfly.%20Could%20you%20share%20current%20photos%20and%20availability%3F"
+        },
+        {
+            "id": "ay-04",
+            "title": "Prism Geometric Diamonds",
+            "urduTitle": "ہندسی منشور",
+            "category": "geometric",
+            "kind": "Geometry",
+            "tag": "Modern Art",
+            "dimensions": "18 × 24 in",
+            "mirrorPieces": "780 precision-cut facets",
+            "pricePKR": 13200,
+            "priceUSD": 48,
+            "description": "Intersecting diamonds and chevrons are paved with reflective facets for a crisp, angular composition.",
+            "image": "/assets/prism.webp",
+            "imagePng": "/assets/Prism-Geometric-Diamonds.png",
+            "imageThumb": "/assets/prism-360.webp",
+            "imageAlt": "Interlocking diamond shapes made with triangular mirror glass",
+            "featured": false,
+            "artSvgType": "geometric",
+            "whatsappUrl": "https://wa.me/923099050832?text=Assalam%20o%20Alaikum%20Ayenah%21%20I%27d%20like%20to%20ask%20about%20the%20Prism%20Geometric%20Diamonds.%20Could%20you%20share%20current%20photos%20and%20availability%3F"
+        },
+        {
+            "id": "ay-05",
+            "title": "Shattered Heart of Light",
+            "urduTitle": "قلبِ ضیاء",
+            "category": "nature",
+            "kind": "Nature & forms",
+            "tag": "Romantic Luxury",
+            "dimensions": "16 × 16 in",
+            "mirrorPieces": "580 mirror shards",
+            "pricePKR": 10500,
+            "priceUSD": 39,
+            "description": "A heart silhouette built from hand-cut mirror pieces gradually disperses into loose facets.",
+            "image": "/assets/heart.webp",
+            "imagePng": "/assets/Shattered-Heart-of-Light.png",
+            "imageThumb": "/assets/heart-360.webp",
+            "imageAlt": "Heart-shaped mirror mosaic with small fragments trailing from one edge",
+            "featured": true,
+            "artSvgType": "shattered-heart",
+            "whatsappUrl": "https://wa.me/923099050832?text=Assalam%20o%20Alaikum%20Ayenah%21%20I%27d%20like%20to%20ask%20about%20the%20Shattered%20Heart%20of%20Light.%20Could%20you%20share%20current%20photos%20and%20availability%3F"
+        },
+        {
+            "id": "ay-06",
+            "title": "Celestial Swan in Jewels",
+            "urduTitle": "قازِ ضیاء",
+            "category": "nature",
+            "kind": "Nature & forms",
+            "tag": "Collector Edition",
+            "dimensions": "20 × 24 in",
+            "mirrorPieces": "920 faceted mirror points",
+            "pricePKR": 16500,
+            "priceUSD": 60,
+            "description": "Small mirror points trace the shape of a swan, with a raised wing that catches the light across the surface.",
+            "image": "/assets/swan.webp",
+            "imagePng": "/assets/Celestial-Swan-in-Jewels.png",
+            "imageThumb": "/assets/swan-360.webp",
+            "imageAlt": "Swan motif with a raised wing made of silver mirror facets",
+            "featured": true,
+            "artSvgType": "swan",
+            "whatsappUrl": "https://wa.me/923099050832?text=Assalam%20o%20Alaikum%20Ayenah%21%20I%27d%20like%20to%20ask%20about%20the%20Celestial%20Swan%20in%20Jewels.%20Could%20you%20share%20current%20photos%20and%20availability%3F"
+        },
+        {
+            "id": "ay-07",
+            "title": "Ayat-ul-Kursi Divine Arc",
+            "urduTitle": "آیت الکرسی مبارک",
+            "category": "calligraphy",
+            "kind": "Calligraphy",
+            "tag": "Exclusive Commission",
+            "dimensions": "30 × 40 in",
+            "mirrorPieces": "Over 2,200 mirror facets",
+            "pricePKR": 32000,
+            "priceUSD": 115,
+            "description": "A large-format interpretation of the Throne Verse in flowing thuluth script, with mirror facets and antique-gold detailing.",
+            "image": "/assets/divine-arc.webp",
+            "imagePng": "/assets/Ayat-ul-Kursi-Divine-Arc.png",
+            "imageThumb": "/assets/divine-arc-360.webp",
+            "imageAlt": "Sweeping arched mirrorwork motif on a dark backing",
+            "featured": true,
+            "artSvgType": "grand-calligraphy",
+            "whatsappUrl": "https://wa.me/923099050832?text=Assalam%20o%20Alaikum%20Ayenah%21%20I%27d%20like%20to%20ask%20about%20the%20Ayat-ul-Kursi%20Divine%20Arc.%20Could%20you%20share%20current%20photos%20and%20availability%3F"
+        },
+        {
+            "id": "ay-08",
+            "title": "Tree of Life Mirror Artwork",
+            "urduTitle": "شجرۂ حیات",
+            "category": "nature",
+            "kind": "Nature & forms",
+            "tag": "Collector's Choice",
+            "dimensions": "24 × 30 in",
+            "mirrorPieces": "1,500 mirror foliage shards",
+            "pricePKR": 22000,
+            "priceUSD": 80,
+            "description": "A gold-toned trunk branches into a crown of individually placed mirror leaves.",
+            "image": "/assets/tree.webp",
+            "imagePng": "/assets/Tree-of-Life.png",
+            "imageThumb": "/assets/tree-360.webp",
+            "imageAlt": "Spreading tree mosaic with silver leaves and a brass-toned trunk",
+            "featured": false,
+            "artSvgType": "tree-of-life",
+            "whatsappUrl": "https://wa.me/923099050832?text=Assalam%20o%20Alaikum%20Ayenah%21%20I%27d%20like%20to%20ask%20about%20the%20Tree%20of%20Life%20Mirror%20Artwork.%20Could%20you%20share%20current%20photos%20and%20availability%3F"
+        },
+        {
+            "id": "ay-09",
+            "title": "Ism-e-Azam Allah Calligraphy",
+            "urduTitle": "اسمِ اعظم اللہ",
+            "category": "calligraphy",
+            "kind": "Calligraphy",
+            "tag": "Imperial Masterpiece",
+            "dimensions": "26 × 34 in",
+            "mirrorPieces": "Over 1,450 mirror rays & quartz",
+            "pricePKR": 24500,
+            "priceUSD": 88,
+            "description": "Grand sacred Allah calligraphy rendered in gold relief with radial mirror bursts, raw quartz crystal clusters, and antique gold textures on textured stone backing.",
+            "image": "/assets/ism-e-azam.webp",
+            "imagePng": "/assets/Ism-e-Azam-Allah-Calligraphy.jpg",
+            "imageThumb": "/assets/ism-e-azam-360.webp",
+            "imageAlt": "Sacred Allah calligraphy with radial mirror bursts and crystals",
+            "featured": true,
+            "artSvgType": "grand-calligraphy",
+            "whatsappUrl": "https://wa.me/923099050832?text=Assalam%20o%20Alaikum%20Ayenah%21%20I%27d%20like%20to%20ask%20about%20the%20Ism-e-Azam%20Allah%20Calligraphy.%20Could%20you%20share%20current%20photos%20and%20availability%3F"
+        },
+        {
+            "id": "ay-10",
+            "title": "Hilal-e-Noor Emerald Crescent",
+            "urduTitle": "ہلالِ نور اللہ",
+            "category": "calligraphy",
+            "kind": "Calligraphy",
+            "tag": "Emerald Royal Edition",
+            "dimensions": "22 × 28 in",
+            "mirrorPieces": "880 mother-of-pearl & mirror facets",
+            "pricePKR": 19500,
+            "priceUSD": 70,
+            "description": "A sweeping crescent moon with sacred Allah calligraphy set against rich emerald green velvet, bounded by gold arabesque corner filigree and an authentic brass plaque.",
+            "image": "/assets/hilal-emerald.webp",
+            "imagePng": "/assets/Hilal-e-Noor-Emerald-Crescent.jpg",
+            "imageThumb": "/assets/hilal-emerald-360.webp",
+            "imageAlt": "Crescent moon with Allah calligraphy on emerald velvet",
+            "featured": true,
+            "artSvgType": "calligraphy-drop",
+            "whatsappUrl": "https://wa.me/923099050832?text=Assalam%20o%20Alaikum%20Ayenah%21%20I%27d%20like%20to%20ask%20about%20the%20Hilal-e-Noor%20Emerald%20Crescent.%20Could%20you%20share%20current%20photos%20and%20availability%3F"
+        },
+        {
+            "id": "ay-11",
+            "title": "Sacred Allah Teardrop Calligraphy",
+            "urduTitle": "خطاطی اسمِ جلالہ",
+            "category": "calligraphy",
+            "kind": "Calligraphy",
+            "tag": "Signature Edition",
+            "dimensions": "24 × 32 in",
+            "mirrorPieces": "Over 1,100 hand-placed mirror petals",
+            "pricePKR": 21000,
+            "priceUSD": 75,
+            "description": "Teardrop sacred medallion with floral mirror filigree borders surrounding the Ism-e-Jalalah Allah calligraphy on royal burgundy velvet.",
+            "image": "/assets/allah-teardrop.webp",
+            "imagePng": "/assets/Sacred-Allah-Teardrop.jpg",
+            "imageThumb": "/assets/allah-teardrop-360.webp",
+            "imageAlt": "Teardrop Allah calligraphy with floral filigree border on burgundy velvet",
+            "featured": true,
+            "artSvgType": "calligraphy-drop",
+            "whatsappUrl": "https://wa.me/923099050832?text=Assalam%20o%20Alaikum%20Ayenah%21%20I%27d%20like%20to%20ask%20about%20the%20Sacred%20Allah%20Teardrop%20Calligraphy.%20Could%20you%20share%20current%20photos%20and%20availability%3F"
+        },
+        {
+            "id": "ay-12",
+            "title": "Sultani Noor Arched Calligraphy",
+            "urduTitle": "سلطانی نور خطاطی",
+            "category": "calligraphy",
+            "kind": "Calligraphy",
+            "tag": "Sultani Masterpiece",
+            "dimensions": "28 × 38 in",
+            "mirrorPieces": "Over 1,800 micro-cut mirror facets",
+            "pricePKR": 28000,
+            "priceUSD": 100,
+            "description": "Imperial Ottoman-inspired arch featuring multi-tiered mirror cresting, botanical scrollwork, and gold relief Allah calligraphy on deep burgundy velvet.",
+            "image": "/assets/sultani-arched.webp",
+            "imagePng": "/assets/Sultani-Noor-Arched-Calligraphy.jpg",
+            "imageThumb": "/assets/sultani-arched-360.webp",
+            "imageAlt": "Grand arched Allah calligraphy with elaborate crest and mirror scrollwork",
+            "featured": true,
+            "artSvgType": "grand-calligraphy",
+            "whatsappUrl": "https://wa.me/923099050832?text=Assalam%20o%20Alaikum%20Ayenah%21%20I%27d%20like%20to%20ask%20about%20the%20Sultani%20Noor%20Grand%20Arched%20Calligraphy.%20Could%20you%20share%20current%20photos%20and%20availability%3F"
+        },
+        {
+            "id": "ay-13",
+            "title": "Taj-e-Noor Golden Calligraphy",
+            "urduTitle": "تاجِ نور خطاطی",
+            "category": "calligraphy",
+            "kind": "Calligraphy",
+            "tag": "Royal Gold Edition",
+            "dimensions": "28 × 38 in",
+            "mirrorPieces": "Over 1,850 mirror & brass facets",
+            "pricePKR": 29500,
+            "priceUSD": 105,
+            "description": "Warm champagne and antique gold mirror variation of the grand arched calligraphy, encased in a walnut and gilded shadowbox frame.",
+            "image": "/assets/taj-golden.webp",
+            "imagePng": "/assets/Taj-e-Noor-Golden-Calligraphy.jpg",
+            "imageThumb": "/assets/taj-golden-360.webp",
+            "imageAlt": "Warm gold arched Allah calligraphy in walnut gilded frame",
+            "featured": false,
+            "artSvgType": "grand-calligraphy",
+            "whatsappUrl": "https://wa.me/923099050832?text=Assalam%20o%20Alaikum%20Ayenah%21%20I%27d%20like%20to%20ask%20about%20the%20Taj-e-Noor%20Golden%20Calligraphy.%20Could%20you%20share%20current%20photos%20and%20availability%3F"
+        },
+        {
+            "id": "ay-14",
+            "title": "Celestial Swan Atelier Frame",
+            "urduTitle": "قازِ ضیاء شاہکار",
+            "category": "nature",
+            "kind": "Nature & forms",
+            "tag": "Atelier Exhibition",
+            "dimensions": "24 × 32 in",
+            "mirrorPieces": "960 mother-of-pearl & mirror feathers",
+            "pricePKR": 18500,
+            "priceUSD": 67,
+            "description": "Full gallery perspective of the celestial swan framed with navy velvet backing, beaded gold inner moulding, and an authentic engraved brass plaque.",
+            "image": "/assets/swan-velvet.webp",
+            "imagePng": "/assets/Celestial-Swan-Velvet-Frame.jpg",
+            "imageThumb": "/assets/swan-velvet-360.webp",
+            "imageAlt": "Celestial swan artwork in navy velvet with brass plaque and beaded frame",
+            "featured": false,
+            "artSvgType": "swan",
+            "whatsappUrl": "https://wa.me/923099050832?text=Assalam%20o%20Alaikum%20Ayenah%21%20I%27d%20like%20to%20ask%20about%20the%20Celestial%20Swan%20Atelier%20Velvet%20Frame.%20Could%20you%20share%20current%20photos%20and%20availability%3F"
+        },
+        {
+            "id": "ay-15",
+            "title": "Shattered Heart Atelier Frame",
+            "urduTitle": "قلبِ ضیاء شاہکار",
+            "category": "nature",
+            "kind": "Nature & forms",
+            "tag": "Atelier Exhibition",
+            "dimensions": "22 × 28 in",
+            "mirrorPieces": "620 hand-cut mirror shards",
+            "pricePKR": 14500,
+            "priceUSD": 52,
+            "description": "Complete framed vertical perspective of the shattered heart of light, set upon charcoal smoke velvet with hand-stained walnut framing.",
+            "image": "/assets/heart-velvet.webp",
+            "imagePng": "/assets/Shattered-Heart-Velvet-Frame.jpg",
+            "imageThumb": "/assets/heart-velvet-360.webp",
+            "imageAlt": "Shattered heart artwork mounted on charcoal smoke velvet with walnut frame",
+            "featured": false,
+            "artSvgType": "shattered-heart",
+            "whatsappUrl": "https://wa.me/923099050832?text=Assalam%20o%20Alaikum%20Ayenah%21%20I%27d%20like%20to%20ask%20about%20the%20Shattered%20Heart%20Atelier%20Velvet%20Frame.%20Could%20you%20share%20current%20photos%20and%20availability%3F"
+        },
+        {
+            "id": "ay-16",
+            "title": "Crystal Butterfly Atelier Frame",
+            "urduTitle": "پروانہ آئینہ شاہکار",
+            "category": "nature",
+            "kind": "Nature & forms",
+            "tag": "Atelier Exhibition",
+            "dimensions": "22 × 28 in",
+            "mirrorPieces": "680 mirror crystals",
+            "pricePKR": 15500,
+            "priceUSD": 56,
+            "description": "Complete exhibition frame of the metamorphosis crystal butterfly with trailing glass shards, mounted on deep velvet with museum brass nameplate.",
+            "image": "/assets/butterfly-velvet.webp",
+            "imagePng": "/assets/Crystal-Butterfly-Velvet-Frame.jpg",
+            "imageThumb": "/assets/butterfly-velvet-360.webp",
+            "imageAlt": "Crystal butterfly mounted in museum frame with velvet backing and brass plaque",
+            "featured": false,
+            "artSvgType": "butterfly",
+            "whatsappUrl": "https://wa.me/923099050832?text=Assalam%20o%20Alaikum%20Ayenah%21%20I%27d%20like%20to%20ask%20about%20the%20Crystal%20Butterfly%20Atelier%20Velvet%20Frame.%20Could%20you%20share%20current%20photos%20and%20availability%3F"
+        },
+        {
+            "id": "ay-17",
+            "title": "Tree of Life Royal Frame",
+            "urduTitle": "شجرۂ حیات شاہکار",
+            "category": "nature",
+            "kind": "Nature & forms",
+            "tag": "Atelier Exhibition",
+            "dimensions": "26 × 36 in",
+            "mirrorPieces": "1,550 shimmering foliage leaves",
+            "pricePKR": 25000,
+            "priceUSD": 90,
+            "description": "Full vertical framed showcase of the Tree of Life with sculptural golden roots, twisting trunk, and thousands of mirror leaves on obsidian velvet.",
+            "image": "/assets/tree-velvet.webp",
+            "imagePng": "/assets/Tree-of-Life-Velvet-Frame.jpg",
+            "imageThumb": "/assets/tree-velvet-360.webp",
+            "imageAlt": "Tree of life mirror artwork in royal obsidian frame with brass plaque",
+            "featured": false,
+            "artSvgType": "tree-of-life",
+            "whatsappUrl": "https://wa.me/923099050832?text=Assalam%20o%20Alaikum%20Ayenah%21%20I%27d%20like%20to%20ask%20about%20the%20Tree%20of%20Life%20Royal%20Obsidian%20Frame.%20Could%20you%20share%20current%20photos%20and%20availability%3F"
+        }
   ];
 
   // ==========================================
@@ -1240,6 +1692,14 @@
           })
         )
       ),
+
+      // Artwork Inspection Dialog Modal
+      React.createElement(ArtworkDetailModal, {
+        product: selectedProduct,
+        isOpen: !!selectedProduct,
+        onClose: () => setSelectedProduct(null),
+        onCommission: handleStartCommission
+      }),
 
       // Inquiries Modal
       React.createElement(InquiryModal, {
@@ -1351,26 +1811,87 @@
           )
         ),
 
-        // Interactive Landing Page Haute Mirror Carousel
-        React.createElement(HeroMirrorCarousel, { onOpenInquiry: handleStartCommission }),
-
-        // Hero CTA Buttons
+        // Authentic Styled Concept Hero Photo from Live Site
         React.createElement(
           'div',
-          { className: 'flex flex-wrap justify-center gap-4 relative z-10' },
+          { className: 'max-w-4xl mx-auto my-6 px-2 w-full z-10' },
           React.createElement(
-            'a',
-            { href: '#collection', className: 'btn-luxury-gold' },
-            React.createElement('span', null, 'Explore Collection'),
-            React.createElement('span', { className: 'text-xs opacity-75' }, '◆')
+            'figure',
+            { className: 'relative rounded-2xl overflow-hidden border border-[#C9A84C]/40 shadow-[0_25px_60px_rgba(0,0,0,0.95)] group' },
+            React.createElement(
+              'picture',
+              null,
+              React.createElement('source', {
+                media: '(max-width: 740px)',
+                type: 'image/webp',
+                srcSet: '/assets/hero-mobile-480.webp 480w, /assets/hero-mobile-800.webp 800w',
+                sizes: '100vw'
+              }),
+              React.createElement('source', {
+                media: '(max-width: 740px)',
+                srcSet: '/assets/Hero-Mobile.png',
+                sizes: '100vw'
+              }),
+              React.createElement('source', {
+                type: 'image/webp',
+                srcSet: '/assets/hero-desktop-800.webp 800w, /assets/hero-desktop-1344.webp 1344w',
+                sizes: '(max-width: 1024px) 95vw, 1100px'
+              }),
+              React.createElement('img', {
+                src: '/assets/Hero-Desktop.png',
+                alt: 'Sunburst mirror mosaic above a walnut console in a warm, textured room',
+                className: 'w-full h-auto object-cover group-hover:scale-[1.015] transition-transform duration-1000 ease-out',
+                fetchPriority: 'high'
+              })
+            ),
+            React.createElement(
+              'figcaption',
+              { className: 'absolute bottom-3 right-3 sm:bottom-4 sm:right-4 px-3 py-1.5 rounded bg-black/85 backdrop-blur-md border border-[#C9A84C]/30 text-[10px] sm:text-[11px] text-[#E8D48B] tracking-wider uppercase' },
+              'Solaris mandala · Styled concept'
+            )
+          )
+        ),
+
+        // Hero CTA Buttons & Artisan Hallmarks
+        React.createElement(
+          'div',
+          { className: 'my-8 space-y-6 relative z-10' },
+          React.createElement(
+            'div',
+            { className: 'flex flex-wrap justify-center gap-4' },
+            React.createElement(
+              'a',
+              { href: '#collection', className: 'btn-luxury-gold' },
+              React.createElement('span', null, 'Explore Collection'),
+              React.createElement('span', { className: 'text-xs opacity-75' }, '◆')
+            ),
+            React.createElement(
+              'a',
+              { href: '#studio', className: 'btn-luxury-outline' },
+              React.createElement('span', null, 'Custom Studio & Calculator'),
+              React.createElement('span', { className: 'text-xs opacity-75' }, '✧')
+            )
           ),
           React.createElement(
-            'a',
-            { href: '#studio', className: 'btn-luxury-outline' },
-            React.createElement('span', null, 'Custom Studio & Calculator'),
-            React.createElement('span', { className: 'text-xs opacity-75' }, '✧')
+            'div',
+            { className: 'flex flex-wrap items-center justify-center gap-4 sm:gap-8 text-[11px] sm:text-xs text-gray-400 tracking-wider uppercase' },
+            React.createElement('span', { className: 'flex items-center gap-1.5' },
+              React.createElement('span', { className: 'text-[#C9A84C]' }, '✦'),
+              'Hand-Cut Mirror Facets'
+            ),
+            React.createElement('span', { className: 'flex items-center gap-1.5' },
+              React.createElement('span', { className: 'text-[#C9A84C]' }, '✦'),
+              'Bespoke Sizing & Framing'
+            ),
+            React.createElement('span', { className: 'flex items-center gap-1.5' },
+              React.createElement('span', { className: 'text-[#C9A84C]' }, '✦'),
+              'Pakistan & Worldwide Courier'
+            )
           )
-        )
+        ),
+
+        // Interactive Landing Page Haute Mirror Carousel
+        React.createElement(HeroMirrorCarousel, { onOpenInquiry: handleStartCommission })
       ),
 
       // --- ART GALLERY / COLLECTION ---
@@ -1414,7 +1935,8 @@
             React.createElement(ArtCard, {
               key: p.id,
               product: p,
-              onSelect: prod => handleStartCommission({ designType: prod.title, budget: `PKR ${prod.pricePKR.toLocaleString()}` })
+              onOpenDetails: prod => setSelectedProduct(prod),
+              onSelect: prod => setSelectedProduct(prod)
             })
           )
         )
@@ -1423,40 +1945,64 @@
       // --- CUSTOM COMMISSION STUDIO ---
       React.createElement(CustomCommissionStudio, { onOpenInquiry: handleStartCommission }),
 
-      // --- THE ARTIST & CRAFT (TIGHTENED SPACING & LUXURY CARD LAYOUT) ---
+      // --- THE ARTIST & CRAFT (AUTHENTIC ARTISAN PHOTOGRAPHY) ---
       React.createElement(
         'section',
         { id: 'craft', className: 'py-20 px-4 sm:px-8 max-w-5xl mx-auto' },
         React.createElement(
           'div',
-          { className: 'p-8 sm:p-12 bg-[#060606] border border-[#202024] rounded-2xl relative shadow-2xl backdrop-blur-md overflow-hidden' },
+          { className: 'p-6 sm:p-10 bg-[#060606] border border-[#202024] rounded-2xl relative shadow-2xl backdrop-blur-md overflow-hidden' },
 
           React.createElement(
             'div',
             { className: 'grid grid-cols-1 md:grid-cols-12 gap-8 items-center' },
+            
+            // Authentic Artisan Handcrafting Photography from Live Site
             React.createElement(
-              'div',
-              { className: 'md:col-span-4 relative flex items-center justify-center h-48 sm:h-64' },
-              React.createElement('div', { className: 'absolute w-44 h-44 rounded-full border border-[#C9A84C]/30 rotating-ring' }),
-              React.createElement('div', { className: 'absolute w-32 h-32 rounded-full border border-white/10 rotating-ring-rev' }),
-              React.createElement('div', { className: 'w-20 h-20 rounded-full bg-[#000000] border border-[#C9A84C] flex items-center justify-center font-nastaliq text-2xl text-[#E8D48B] shadow-[0_0_20px_rgba(201,168,76,0.3)]' }, 'آئینہ')
+              'figure',
+              { className: 'md:col-span-5 rounded-xl overflow-hidden border border-[#C9A84C]/40 shadow-2xl relative group aspect-[4/5]' },
+              React.createElement(
+                'picture',
+                null,
+                React.createElement('source', {
+                  type: 'image/webp',
+                  srcSet: '/assets/craft-600.webp 600w, /assets/craft-960.webp 960w',
+                  sizes: '(max-width: 740px) 94vw, 42vw'
+                }),
+                React.createElement('img', {
+                  src: '/assets/Craft-Mirror-Mosaic.png',
+                  alt: 'Concept image of an artisan placing a mirror facet by hand',
+                  className: 'w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out',
+                  loading: 'lazy'
+                })
+              ),
+              React.createElement('div', { className: 'absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent pointer-events-none' }),
+              React.createElement('figcaption', { className: 'absolute bottom-3 left-3 text-[11px] text-[#E8D48B] uppercase tracking-wider bg-black/80 px-2.5 py-1 rounded border border-[#C9A84C]/25' },
+                'Artisan Atelier Technique'
+              )
             ),
+
             React.createElement(
               'div',
-              { className: 'md:col-span-8 space-y-3.5' },
-              React.createElement('span', { className: 'text-xs uppercase tracking-[0.3em] text-[#C9A84C] font-semibold' }, 'Behind The Mirror'),
-              React.createElement('h2', { className: 'text-2xl sm:text-3xl font-light font-[\'Cormorant_Garamond\'] text-white' }, 'The Meditative Art of Light & Shards'),
-              React.createElement('p', { className: 'text-xs sm:text-sm text-gray-400 leading-relaxed' },
-                'Ayenah was born out of a profound passion for traditional mosaic craft elevated into modern luxury aesthetics. Every tiny mirror facet is hand-broken, precision-cut, and meticulously arranged to catch changing ambient daylight and evening chandeliers.'
+              { className: 'md:col-span-7 space-y-4' },
+              React.createElement('span', { className: 'text-xs uppercase tracking-[0.3em] text-[#C9A84C] font-semibold' }, 'The Craft'),
+              React.createElement('h2', { className: 'text-2xl sm:text-3xl font-light font-[\'Cormorant_Garamond\'] text-white' },
+                'Shaped by hand. ',
+                React.createElement('em', { className: 'italic text-[#E8D48B]' }, 'Revealed by light.')
+              ),
+              React.createElement('p', { className: 'text-xs sm:text-sm text-gray-300 leading-relaxed' },
+                'Each mosaic begins with small pieces of mirror, cut and placed by hand. The angles between the facets give the artwork its texture and change how it looks as you move through the room.'
               ),
               React.createElement('p', { className: 'text-xs sm:text-sm text-gray-400 leading-relaxed' },
-                'Unlike conventional flat art, mirror work is a living, breathing creation — as you walk through your space, it illuminates different angles, bringing tranquility, depth, and radiant beauty into your home.'
+                'Our work brings that technique to Arabic calligraphy, mandalas and silhouettes drawn from nature. Unlike flat prints, mirror mosaic creates a dynamic interaction with your room’s ambient light.'
               ),
               React.createElement(
                 'div',
-                { className: 'pt-1 flex items-center gap-2' },
-                React.createElement('span', { className: 'font-[\'Cormorant_Garamond\'] text-lg text-[#E8D48B] italic' }, '— Ayenah Official Atelier'),
-                React.createElement('span', { className: 'font-nastaliq text-base text-[#C9A84C]' }, 'آئینہ')
+                { className: 'pt-2 flex items-center justify-between' },
+                React.createElement('a', { href: '#journey', className: 'text-xs text-[#E8D48B] hover:underline flex items-center gap-1.5' },
+                  'See the commission process →'
+                ),
+                React.createElement('span', { className: 'font-nastaliq text-xl text-[#C9A84C]' }, 'آئینہ')
               )
             )
           )

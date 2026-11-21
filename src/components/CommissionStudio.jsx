@@ -26,6 +26,22 @@ export default function CommissionStudio({ onOpenInquiry }) {
     { id: 'shadowbox', label: 'Floating Obsidian Shadow Box Frame', cost: 4000 }
   ];
 
+  const motifImages = {
+    calligraphy: '/assets/sacred-noor.webp',
+    mandala: '/assets/solaris.webp',
+    butterfly: '/assets/butterfly.webp',
+    heart: '/assets/heart.webp',
+    geometric: '/assets/prism.webp'
+  };
+
+  const motifImagesPng = {
+    calligraphy: '/assets/Sacred-Noor-Calligraphy.png',
+    mandala: '/assets/Solaris-Mirror-Mandala.png',
+    butterfly: '/assets/Metamorphosis-Crystal-Butterfly.png',
+    heart: '/assets/Shattered-Heart-of-Light.png',
+    geometric: '/assets/Prism-Geometric-Diamonds.png'
+  };
+
   const selectedShapeObj = shapes.find(s => s.id === shape);
   const selectedSizeObj = sizes.find(s => s.id === size);
   const selectedFrameObj = frames.find(f => f.id === frame) || frames[1];
@@ -57,10 +73,13 @@ export default function CommissionStudio({ onOpenInquiry }) {
                 <button
                   key={s.id}
                   onClick={() => setShape(s.id)}
-                  className={`text-left p-3 rounded-lg border text-xs transition-all ${shape === s.id ? 'border-[#C9A84C] bg-[#C9A84C]/10 text-white shadow-md' : 'border-[#26262B] bg-[#0E0E0E] text-gray-400 hover:border-gray-600'}`}
+                  className={`text-left p-3.5 rounded-lg border text-xs transition-all ${s.id === 'geometric' ? 'sm:col-span-2' : ''} ${shape === s.id ? 'border-[#C9A84C] bg-[#C9A84C]/10 text-white shadow-md' : 'border-[#26262B] bg-[#0E0E0E] text-gray-400 hover:border-gray-600'}`}
                 >
-                  <div className="font-medium">{s.label}</div>
-                  <div className="text-[11px] text-gray-500 mt-0.5">Avg: {s.mirrors} Mirror Pieces</div>
+                  <div className="flex justify-between items-center gap-2">
+                    <span className="font-medium text-white">{s.label}</span>
+                    <span className="font-nastaliq text-xs text-[#E8D48B]">{s.urdu}</span>
+                  </div>
+                  <div className="text-[11px] text-gray-500 mt-1">Avg: {s.mirrors} Hand-Cut Shards</div>
                 </button>
               ))}
             </div>
@@ -100,6 +119,19 @@ export default function CommissionStudio({ onOpenInquiry }) {
 
         <div className="lg:col-span-5 bg-[#0E0E0E] border border-[#2B2B32] rounded-xl p-6 flex flex-col justify-between">
           <div>
+            <div className="w-full aspect-square bg-[#050505] border border-[#202024] rounded-lg mb-4 overflow-hidden relative group">
+              <picture>
+                <source type="image/webp" srcSet={motifImages[shape] || '/assets/solaris.webp'} />
+                <img
+                  src={motifImagesPng[shape] || '/assets/Solaris-Mirror-Mandala.png'}
+                  alt={selectedShapeObj.label}
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
+                />
+              </picture>
+              <span className="absolute bottom-2 left-2 px-2 py-0.5 rounded bg-black/80 text-[10px] text-[#E8D48B] uppercase tracking-wider border border-[#C9A84C]/30">
+                Motif Preview
+              </span>
+            </div>
             <h4 className="font-['Cormorant_Garamond'] text-xl text-white">{selectedShapeObj.label}</h4>
             <p className="text-xs text-gray-400 mt-1">{selectedSizeObj.label} · Hand-cut mirror mosaic on obsidian canvas.</p>
           </div>

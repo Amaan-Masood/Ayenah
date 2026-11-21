@@ -4,6 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Ayenah Official | Luxury Handcrafted Mirror Art</title>
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="/assets/cormorant.woff2" as="font" type="font/woff2" crossorigin>
   
   <!-- Tailwind CSS -->
   <script src="https://www.gstatic.com/antigravity/web/dev/tailwindcss.min.js"></script>
@@ -135,12 +137,13 @@
       opacity: 1;
     }
 
-    /* Ambient Cursor Canvas Layer */
+    /* Ambient Cursor Canvas Layer (Background particle effect) */
     #cursor-mirror-canvas {
       position: fixed;
       inset: 0;
       pointer-events: none;
-      z-index: 50;
+      z-index: 0;
+      opacity: 0.35;
     }
 
     /* =========================================
@@ -226,15 +229,20 @@
 
     /* Compact Luxury Card Button */
     .btn-luxury-sm {
-      padding: 0.45rem 1.1rem;
+      padding: 0.45rem 0.95rem;
       font-size: 0.68rem;
-      letter-spacing: 0.18em;
-      border-radius: 2px;
+      letter-spacing: 0.14em;
+      border-radius: 3px;
       border: 1px solid rgba(201, 168, 76, 0.5);
       background: rgba(201, 168, 76, 0.08);
       color: #E8D48B;
       text-transform: uppercase;
       transition: all 0.3s ease;
+      white-space: nowrap;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
     }
 
     .btn-luxury-sm:hover {

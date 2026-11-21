@@ -58,6 +58,7 @@ const MIME_TYPES = {
   '.json': 'application/json; charset=UTF-8',
   '.css': 'text/css; charset=UTF-8',
   '.svg': 'image/svg+xml',
+  '.webp': 'image/webp',
   '.png': 'image/png',
   '.jpg': 'image/jpeg',
   '.jpeg': 'image/jpeg',
@@ -118,6 +119,7 @@ const server = http.createServer(async (req, res) => {
 
     // GET /api/products
     if (pathname === '/api/products' && method === 'GET') {
+      products = loadJson('products.json');
       const category = parsedUrl.query.category;
       let result = products;
       if (category && category !== 'all') {
@@ -128,6 +130,7 @@ const server = http.createServer(async (req, res) => {
 
     // GET /api/products/:id
     if (pathname.startsWith('/api/products/') && method === 'GET') {
+      products = loadJson('products.json');
       const id = pathname.replace('/api/products/', '');
       const product = products.find(p => p.id === id);
       if (product) {
