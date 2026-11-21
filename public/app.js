@@ -1713,12 +1713,21 @@
         'nav',
         { className: `fixed top-0 left-0 right-0 z-40 transition-all duration-300 px-4 sm:px-10 py-4 flex items-center justify-between ${navScrolled ? 'bg-[#000000]/95 backdrop-blur-md border-b border-[#C9A84C]/25 shadow-2xl py-3' : 'bg-transparent'}` },
         
-        // Brand Logo with Noto Nastaliq Urdu (Pure Ayenah emblem)
+        // Brand Logo with Official Ayenah Emblem
         React.createElement(
           'a',
-          { href: '#', className: 'flex items-center gap-2.5' },
-          React.createElement('span', { className: 'font-[\'Cormorant_Garamond\'] text-2xl sm:text-3xl font-light tracking-[0.25em] shimmer-gold' }, 'AYENAH'),
-          React.createElement('span', { className: 'font-nastaliq text-xl text-[#E8D48B] border-l border-[#C9A84C]/40 pl-2.5 opacity-90 leading-none' }, 'آئینہ')
+          { href: '#', className: 'flex items-center gap-3 group' },
+          React.createElement('img', {
+            src: '/assets/ayenah-emblem.png',
+            alt: 'Ayenah Official Logo',
+            className: 'w-9 h-9 sm:w-10 sm:h-10 object-contain rounded-full shadow-[0_0_15px_rgba(201,168,76,0.35)] group-hover:scale-105 transition-transform duration-300'
+          }),
+          React.createElement(
+            'div',
+            { className: 'flex items-center gap-2' },
+            React.createElement('span', { className: 'font-[\'Cormorant_Garamond\'] text-2xl sm:text-3xl font-light tracking-[0.22em] shimmer-gold' }, 'AYENAH'),
+            React.createElement('span', { className: 'font-nastaliq text-lg sm:text-xl text-[#E8D48B] border-l border-[#C9A84C]/40 pl-2 opacity-90 leading-none' }, 'آئینہ')
+          )
         ),
 
         // Desktop Links
@@ -1784,11 +1793,15 @@
           'div',
           { className: 'max-w-4xl mx-auto relative z-10 space-y-4' },
 
-          // Clean Geometric Gold Diamond Emblem
+          // Official Ayenah Mirror Rosette Emblem Logo
           React.createElement(
             'div',
-            { className: 'w-10 h-10 mx-auto border border-[#C9A84C]/60 rotate-45 flex items-center justify-center p-1.5 mb-2' },
-            React.createElement('div', { className: 'w-full h-full bg-gradient-to-br from-[#E8D48B]/50 to-transparent' })
+            { className: 'relative w-28 sm:w-36 md:w-40 mx-auto mb-3 group' },
+            React.createElement('img', {
+              src: '/assets/ayenah-emblem.png',
+              alt: 'Ayenah Official Handcrafted Mirror Art Emblem',
+              className: 'w-full h-auto object-contain drop-shadow-[0_0_35px_rgba(201,168,76,0.45)] group-hover:scale-105 transition-transform duration-700'
+            })
           ),
 
           React.createElement('h1', { className: 'text-5xl sm:text-7xl md:text-8xl font-light font-[\'Cormorant_Garamond\'] tracking-[0.25em] shimmer-gold' }, 'AYENAH'),
@@ -2069,9 +2082,18 @@
             { className: 'space-y-3' },
             React.createElement(
               'div',
-              { className: 'flex items-center gap-2' },
-              React.createElement('h3', { className: 'font-[\'Cormorant_Garamond\'] text-2xl tracking-widest text-white shimmer-gold' }, 'AYENAH'),
-              React.createElement('span', { className: 'font-nastaliq text-lg text-[#E8D48B]' }, 'آئینہ')
+              { className: 'flex items-center gap-3' },
+              React.createElement('img', {
+                src: '/assets/ayenah-emblem.png',
+                alt: 'Ayenah Logo Emblem',
+                className: 'w-11 h-11 object-contain rounded-full shadow-[0_0_15px_rgba(201,168,76,0.35)]'
+              }),
+              React.createElement(
+                'div',
+                null,
+                React.createElement('h3', { className: 'font-[\'Cormorant_Garamond\'] text-2xl tracking-widest text-white shimmer-gold leading-none' }, 'AYENAH'),
+                React.createElement('span', { className: 'font-nastaliq text-sm text-[#E8D48B] block mt-0.5' }, 'آئینہ')
+              )
             ),
             React.createElement('p', { className: 'text-xs text-gray-400 leading-relaxed' }, 'Handcrafted luxury mirror mosaic artwork. Custom Arabic calligraphy, mandalas, and luxury decorative statements.'),
             React.createElement(
